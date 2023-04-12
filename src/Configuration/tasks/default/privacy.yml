@@ -707,7 +707,7 @@ actions:
     # === Allow device name to be sent in Windows diagnostic data - Disabled
   - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowDeviceNameInTelemetry", type: REG_DWORD, data: "0" }
     # === Allow Telemetry - Disabled
-    - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
     # === Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service - Disabled
   - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "DisableEnterpriseAuthProxy", type: REG_DWORD, data: "1" }
     # === Configure collection of browsing data for Desktop Analytics - Do not allow sending intranet or internet history (Disabled)
