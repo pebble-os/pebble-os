@@ -44,6 +44,9 @@ actions:
   ########################################################################################
   - !writeStatus: { status: "Windows settings" }
 
+  # Remove "3D Objects" in This PC
+  - !registryValue { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' }
+  - !registryValue { path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' }
     # Reduce menu show delay time
     # Automatically close any applications and continue to restart, shut down, or sign out of windows
   - !registryValue:
