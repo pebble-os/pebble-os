@@ -1,0 +1,6 @@
+[submodule "sources/revios"]
+	path = sources/revios
+	url = https://github.com/meetrevision/playbook.git
+[submodule "sources/atlasos"]
+	path = sources/atlasos
+	url = https://github.com/Atlas-OS/Atlas.git

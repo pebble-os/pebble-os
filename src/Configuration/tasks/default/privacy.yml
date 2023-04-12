@@ -1,0 +1,1030 @@
+---
+title: Privacy
+description: Configure privacy-related seettings
+privilege: TrustedInstaller
+actions:
+  # Do not let websites access language list
+  - !registryValue: { path: 'HKCU\Control Panel\International\User Profile', value: "HttpAcceptLanguageOptOut", type: REG_DWORD, data: "1" }
+  - !run: { exe: "PowerShell", args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-WindowsErrorReporting"', showOutput: false, showError: false }
+  - !run: { exe: "setx", args: "DOTNET_CLI_TELEMETRY_OPTOUT 1" }
+  - !run: { exe: "setx", args: "POWERSHELL_TELEMETRY_OPTOUT 1" }
+    # Disable Windows Customer Experience Improvement Program (CEIP)
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\AppV\CEIP'
+    value: "CEIPEnable"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\SQMClient\Windows'
+    value: "CEIPEnable"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows'
+    value: "CEIPEnable"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Wow6432Node\Microsoft\VSCommon\15.0\SQM'
+    value: "OptIn"
+    data: "0"
+    type: REG_DWORD
+    # Disable activity feed
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: "EnableActivityFeed"
+    data: "0"
+    type: REG_DWORD
+    # Disable Windows Media Player wizard on first run
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\MediaPlayer\Preferences'
+    value: "AcceptedPrivacyStatement"
+    data: "1"
+    type: REG_DWORD
+    # Configure search settings
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search'
+    value: "ConnectedSearchUseWeb"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search'
+    value: "DisableWebSearch"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search'
+    value: "AllowCloudSearch"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search'
+    value: "BingSearchEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings'
+    value: "IsAADCloudSearchEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings'
+    value: "IsMSACloudSearchEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings'
+    value: "IsDeviceSearchHistoryEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings'
+    value: "SafeSearchMode"
+    data: "0"
+    type: REG_DWORD
+
+    # Disable search suggestions
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer'
+    value: "DisableSearchBoxSuggestions"
+    data: "1"
+    type: REG_DWORD
+    # Hide frequently and recently used files/folders in Quick Access
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+    value: "ShowFrequent"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+    value: "ShowRecent"
+    data: "0"
+    type: REG_DWORD
+    # Hide sync provider notifications in File Explorer
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    value: "ShowSyncProviderNotifications"
+    data: "0"
+    type: REG_DWORD
+    # Disable recent items and frequent places in File Explorer
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    value: "Start_TrackDocs"
+    data: "0"
+    type: REG_DWORD
+    # Disable internet file association service
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "NoInternetOpenWith"
+    data: "1"
+    type: REG_DWORD
+    # Disable Content Delivery Manager
+    # Disable pre-installed applications
+    # Disable Windows welcome experience
+    # Disable suggested content in Immersive Control Panel
+    # Disable fun facts, tips, tricks on Windows Spotlight
+    # Disable start menu suggestions
+    # Disable get tips, tricks, and suggestions as you use windows
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "ContentDeliveryAllowed"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "OemPreInstalledAppsEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "PreInstalledAppsEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "PreInstalledAppsEverEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SilentInstalledAppsEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-310093Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-338393Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-353694Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-353696Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-338387Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "RotatingLockScreenOverlayEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-338388Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SystemPaneSuggestionsEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SubscribedContent-338389Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: "SoftLandingEnabled"
+    data: "0"
+    type: REG_DWORD
+    # Disable Windows Spotlight features
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\CloudContent'
+    value: "DisableWindowsSpotlightFeatures"
+    data: "1"
+    type: REG_DWORD
+
+    # Disable tips in Immersive Control Panel
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowOnlineTips'
+    value: "value"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "AllowOnlineTips"
+    data: "0"
+    type: REG_DWORD
+
+    # Disable suggest ways I can finish setting up my device
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement'
+    value: "ScoobeSystemSettingEnabled"
+    data: "0"
+    type: REG_DWORD
+    # Disable disk quota
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DiskQuota'
+    value: "Enable"
+    data: "0"
+    type: REG_DWORD
+    # Disable Program Compatibility Assistant (PCA)
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat'
+    value: "AITEnable"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat'
+    value: "AllowTelemetry"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat'
+    value: "DisableInventory"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat'
+    value: "DisableUAR"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat'
+    value: "DisableEngine"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat'
+    value: "DisablePCA"
+    data: "1"
+    type: REG_DWORD
+    # Do not preserve zone information in file attachments
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments'
+    value: "SaveZoneInformation"
+    data: "1"
+    type: REG_DWORD
+    # Disable text/ink/handwriting telemetry
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\InputPersonalization'
+    value: "RestrictImplicitInkCollection"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\InputPersonalization'
+    value: "RestrictImplicitTextCollection"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore'
+    value: "HarvestContacts"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Personalization\Settings'
+    value: "AcceptedPrivacyPolicy"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC'
+    value: "PreventHandwritingDataSharing"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports'
+    value: "PreventHandwritingErrorReports"
+    data: "1"
+    type: REG_DWORD
+
+    # Disable spell checking
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7'
+    value: "EnableSpellchecking"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7'
+    value: "EnableTextPrediction"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7'
+    value: "EnablePredictionSpaceInsertion"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7'
+    value: "EnableDoubleTapSpace"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7'
+    value: "EnableAutocorrection"
+    data: "0"
+    type: REG_DWORD
+
+    # Disable typing insights
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Input\Settings'
+    value: "InsightsEnabled"
+    data: "0"
+    type: REG_DWORD
+
+    # Disable Windows Error Reporting (WER)
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\PCHealth\ErrorReporting'
+    value: "DoReport"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting'
+    value: "Disabled"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting'
+    value: "DontSendAdditionalData"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting'
+    value: "DontShowUI"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting'
+    value: "LoggingDisabled"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting\Consent'
+    value: "DefaultConsent"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting\Consent'
+    value: "DefaultOverrideBehavior"
+    data: "1"
+    type: REG_DWORD
+
+    # Disable data collection
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection'
+    value: "AllowTelemetry"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'
+    value: "AllowTelemetry"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'
+    value: "MaxTelemetryAllowed"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'
+    value: "AllowDeviceNameInTelemetry"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection'
+    value: "AllowTelemetry"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection'
+    value: "LimitEnhancedDiagnosticDataWindowsAnalytics"
+    data: "0"
+    type: REG_DWORD
+    # Disable smartscreen for Microsoft Store applications
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost'
+    value: "EnableWebContentEvaluation"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost'
+    value: "PreventOverride"
+    data: "0"
+    type: REG_DWORD
+
+    # Disable smartscreen for applications and files from web
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: "EnableSmartScreen"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+    value: "SmartScreenEnabled"
+    data: "Off"
+    type: REG_SZ
+
+    # Disable experimentation
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\PolicyManager\default\System\AllowExperimentation'
+    value: "Value"
+    data: "0"
+    type: REG_DWORD
+    # Configure miscellaneous settings
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy'
+    value: "TailoredExperiencesWithDiagnosticDataEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack'
+    value: "ShowedToastAtLevel"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Input\TIPC'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: "UploadUserActivities"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: "PublishUserActivities"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance'
+    value: "DisableDiagnosticTracing"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}'
+    value: "ScenarioExecutionEnabled"
+    data: "0"
+    type: REG_DWORD
+    # Disable advertising info
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+
+    # Disable cloud optimized taskbars
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent'
+    value: "DisableCloudOptimizedContent"
+    data: "1"
+    type: REG_DWORD
+
+    # Disable license telemetry
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform'
+    value: "NoGenTicket"
+    data: "1"
+    type: REG_DWORD
+
+    # Disable Windows Feedback
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Siuf\Rules'
+    value: "NumberOfSIUFInPeriod"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Siuf\Rules'
+    value: "PeriodInNanoSeconds"
+    operation: delete
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'
+    value: "DoNotShowFeedbackNotifications"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection'
+    value: "DoNotShowFeedbackNotifications"
+    data: "1"
+    type: REG_DWORD
+
+    # Disable setting synchronization
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync'
+    value: "DisableSettingSync"
+    data: "2"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync'
+    value: "DisableSettingSyncUserOverride"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync'
+    value: "DisableSyncOnPaidNetwork"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Personalization'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\BrowserSettings'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Credentials'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Accessibility'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Windows'
+    value: "Enabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync'
+    value: "SyncPolicy"
+    data: "5"
+    type: REG_DWORD
+    # Disable Shared Experiences
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: "EnableCdp"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications', value: "ConfigureChatAutoInstall", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications', value: "NoCloudApplicationNotification", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced', value: "ShowSyncProviderNotifications", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced', value: "ShowSyncProviderNotifications", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced', value: "HideFileExt", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced', value: "HideFileExt", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\NVIDIA Corporation\NVControlPanel2\Client', value: "OptInOrOutPreference", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\NVIDIA Corporation\NVControlPanel2\Client', value: "OptInOrOutPreference", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System', value: "AllowExperimentation", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsConsumerFeatures", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\features', value: "PaidWifi", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\features', value: "WiFiSenseOpen", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat', value: "DisableInventory", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore', value: "HarvestContacts", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\InputPersonalization\TrainedDataStore', value: "HarvestContacts", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitTextCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitTextCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitInkCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitInkCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo', value: "Id", operation: delete }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo', value: "Id", operation: delete }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo', value: "DisabledByGroupPolicy", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy', value: "TailoredExperiencesWithDiagnosticDataEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Privacy', value: "TailoredExperiencesWithDiagnosticDataEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent', value: "DisableTailoredExperiencesWithDiagnosticData", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE\AppSettings', value: "Skype-UserConsentAccepted", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Control Panel\International\User Profile', value: "HttpAcceptLanguageOptOut", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Control Panel\International\User Profile', value: "HttpAcceptLanguageOptOut", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: "EnableActivityFeed", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: "PublishUserActivities", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: "UploadUserActivities", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SystemPaneSuggestionsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SystemPaneSuggestionsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContent-338388Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContent-338388Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization', value: "AllowInputPersonalization", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Personalization\Settings', value: "AcceptedPrivacyPolicy", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Personalization\Settings', value: "AcceptedPrivacyPolicy", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput', value: "AllowLinguisticDataCollection", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "OemPreInstalledAppsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "OemPreInstalledAppsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Search', value: "BingSearchEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Search', value: "BingSearchEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Search', value: "BingSearchEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Search', value: "BingSearchEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\input\TIPC', value: "Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Input\TIPC', value: "Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Input\TIPC', value: "Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer', value: "ShowFrequent", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Explorer', value: "ShowFrequent", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer', value: "ShowRecent", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Explorer', value: "ShowRecent", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: "Enabledv9", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: "Enabledv9", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: "PreventOverride", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: "PreventOverride", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Internet Explorer\PhishingFilter', value: "Enabledv9", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer', value: "SmartScreenEnabled", type: REG_SZ, data: "Off" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightFeatures", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightFeatures", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "ConfigureWindowsSpotlight", type: REG_DWORD, data: "2" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "ConfigureWindowsSpotlight", type: REG_DWORD, data: "2" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "IncludeEnterpriseSpotlight", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "IncludeEnterpriseSpotlight", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightFeatures", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightFeatures", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightWindowsWelcomeExperience", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightWindowsWelcomeExperience", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightOnActionCenter", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightOnActionCenter", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightOnSettings", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightOnSettings", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent', value: "DisableThirdPartySuggestions", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent', value: "DisableSoftLanding", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: "EnableVirtualizationBasedSecurity", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\Policies\Microsoft\Windows\DeviceGuard', value: "HVCIMATRequired", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: "Locked", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: "RequirePlatformSecurityFeatures", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: "EnableVirtualizationBasedSecurity", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "ChangedInBootCycle", operation: delete }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "HVCIMATRequired", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "Locked", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "WasEnabledBy", operation: delete }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\Lsa', value: "LsaCfgFlags", type: REG_DWORD, data: "0" }
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\OOBE'
+    value: "DisablePrivacyExperience"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent'
+    value: "DisableWindowsConsumerFeatures"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl\StorageTelemetry'
+    value: "DeviceDumpEnabled"
+    data: "0"
+    type: REG_DWORD
+    # === Configure Windows spotlight on lock screen - Disabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "ConfigureWindowsSpotlight", type: REG_DWORD, data: "2" }
+    # === Include content from Enterprise spotlight - Disabled/False
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "IncludeEnterpriseSpotlight", type: REG_DWORD, data: "0" }
+    # === Do not suggest third-party content in Windows spotlight - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableThirdPartySuggestions", type: REG_DWORD, data: "1" }
+    # === Do not use diagnostic data for tailored experiences - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableTailoredExperiencesWithDiagnosticData", type: REG_DWORD, data: "1" }
+    # === Turn off all Windows spotlight features - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightFeatures", type: REG_DWORD, data: "1" }
+    # === Turn off the Windows Welcome Experience - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightWindowsWelcomeExperience", type: REG_DWORD, data: "1" }
+    # === Turn off Windows Spotlight on Action Center - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightOnActionCenter", type: REG_DWORD, data: "1" }
+    # === Turn off Windows Spotlight on Settings - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent', value: "DisableWindowsSpotlightOnSettings", type: REG_DWORD, data: "1" }
+    # === Allow Message Service Cloud Sync - Disabled
+    # ------> https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Messaging::AllowMessageSync
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\Messaging', value: "AllowMessageSync", type: REG_DWORD, data: "0" }
+    # === Automatically send memory dumps for OS-generated error reports - Disabled
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "AutoApproveOSDumps", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "AutoApproveOSDumps", type: REG_DWORD, data: "0" }
+    # === Disable logging - Enabled
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "LoggingDisabled", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "LoggingDisabled", type: REG_DWORD, data: "1" }
+    # === Disable Windows Error Reporting - Enabled
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "Disabled", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "Disabled", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting', value: "Disabled", type: REG_DWORD, data: "1" }
+    # === DefaultConsent
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\Windows Error Reporting\Consent', value: "DefaultConsent", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\Windows Error Reporting\Consent', value: "DefaultOverrideBehavior", type: REG_DWORD, data: "1" }
+    # === Do not send additional data - Enabled
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "DontSendAdditionalData", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "DontSendAdditionalData", type: REG_DWORD, data: "1" }
+    # === Prevent display of the user interface for critical errors - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting', value: "DontShowUI", type: REG_DWORD, data: "1" }
+    # === Allow Online Tips - Disabled
+    # ------> If disabled, Settings will not contact Microsoft content services to retrieve tips and help content.
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "AllowOnlineTips", type: REG_DWORD, data: "0" }
+    # === Allow commercial data pipeline - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowCommercialDataPipeline", type: REG_DWORD, data: "0" }
+    # === Allow device name to be sent in Windows diagnostic data - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowDeviceNameInTelemetry", type: REG_DWORD, data: "0" }
+    # === Allow Telemetry - Disabled
+    - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
+    # === Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "DisableEnterpriseAuthProxy", type: REG_DWORD, data: "1" }
+    # === Configure collection of browsing data for Desktop Analytics - Do not allow sending intranet or internet history (Disabled)
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "MicrosoftEdgeDataOptIn", type: REG_DWORD, data: "0" }
+    # === Configure telemetry opt-in change notifications - Disable telemetry change notifications
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "DisableTelemetryOptInChangeNotification", type: REG_DWORD, data: "1" }
+    # === Configure telemetry opt-in setting user interface - Disable telemetry opt-in Settings
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "DisableTelemetryOptInSettingsUx", type: REG_DWORD, data: "1" }
+    # === Disable pre-release features or settings - Enabled
+    # ------> If you disable this policy setting, all experimentations will be turned off.
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\PreviewBuilds', value: "EnableConfigFlighting", type: REG_DWORD, data: "0" }
+    # === Do not show feedback notifications - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "DoNotShowFeedbackNotifications", type: REG_DWORD, data: "1" }
+    # === Limit Enhanced diagnostic data to the minimum required by Windows Analytics - Disable Windows Analytics collection
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "LimitEnhancedDiagnosticDataWindowsAnalytics", type: REG_DWORD, data: "0" }
+    # === Toggle user control over Insider builds - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\DataCollection', value: "AllowBuildPreview", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\EdgeUI', value: "DisableHelpSticker", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\EdgeUI', value: "DisableHelpSticker", type: REG_DWORD, data: "1" }
+    # === Turn off tracking of app usage - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\EdgeUI', value: "DisableMFUTracking", type: REG_DWORD, data: "1" }
+    # === Content Delivery - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "ContentDeliveryAllowed", type: REG_DWORD, data: "0" }
+    # === Subscribed Content - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContentEnabled", type: REG_DWORD, data: "0" }
+    # === Windows Welcome Experience after Updates - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContent-310093Enabled", type: REG_DWORD, data: "0" }
+    # === Get tips, tricks and suggestions as you use Windows - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SoftLandingEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContent-338389Enabled", type: REG_DWORD, data: "0" }
+    # === Automatically Install Suggested and Pre-installed Apps - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SilentInstalledAppsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "PreInstalledAppsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "PreInstalledAppsEverEnabled", type: REG_DWORD, data: "0" }
+    # === Pre-installed vendor apps - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "OemPreInstalledAppsEnabled", type: REG_DWORD, data: "0" }
+    # === Pre-installed vendor apps - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "OemPreInstalledAppsEnabled", type: REG_DWORD, data: "0" }
+    # === Prevent Content Delivery Manager from reverting feature configuration
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "FeatureManagementEnabled", type: REG_DWORD, data: "0" }
+    # === Remove Content Delivery Subcsriptions
+  - !registryKey: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\Subscriptions' }
+    # === Remove Suggested Apps from Content Delivery
+  - !registryKey: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps' }
+    # === Turn off Application Compatibility Engine - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AppCompat', value: "DisableEngine", type: REG_DWORD, data: "1" }
+    # === Turn off Application Telemetry - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AppCompat', value: "AITEnable", type: REG_DWORD, data: "0" }
+    # === Turn off Problem Steps Recorder - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AppCompat', value: "DisableUAR", type: REG_DWORD, data: "1" }
+    # === Turn off Program Compatibility Assistant - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\AppCompat', value: "DisablePCA", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AppCompat', value: "DisablePCA", type: REG_DWORD, data: "1" }
+    # === Turn off Program Inventory - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AppCompat', value: "DisableInventory", type: REG_DWORD, data: "1" }
+    # === Turn off SwitchBack Compatibility Engine - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AppCompat', value: "SbEnable", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\InternetManagement', value: "RestrictCommunication", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoPublishingWizard", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoWebServices", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform', value: "NoGenTicket", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoOnlinePrintsWizard", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Messenger\Client', value: "CEIP", type: REG_DWORD, data: "2" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoInternetOpenWith", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: "DisableHTTPPrinting", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: "DisableWebPnPDownload", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\HandwritingErrorReports', value: "PreventHandwritingErrorReports", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\TabletPC', value: "PreventHandwritingDataSharing", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Assistance\Client\1.0', value: "NoOnlineAssist", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Assistance\Client\1.0', value: "NoExplicitFeedback", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Assistance\Client\1.0', value: "NoImplicitFeedback", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\WindowsMovieMaker', value: "WebHelp", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\WindowsMovieMaker', value: "CodecDownload", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\WindowsMovieMaker', value: "WebPublish", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\InternetManagement', value: "RestrictCommunication", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoPublishingWizard", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoWebServices", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform', value: "NoGenTicket", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoOnlinePrintsWizard", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Messenger\Client', value: "CEIP", type: REG_DWORD, data: "2" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc', value: "Headlines", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc', value: "MicrosoftKBSearch", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\PCHealth\ErrorReporting', value: "DoReport", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\Windows Error Reporting', value: "Disabled", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoInternetOpenWith", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\Internet Connection Wizard', value: "ExitOnMSICW", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\EventViewer', value: "MicrosoftEventVwrDisableLinks", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting\Consent', value: "0", type: REG_SZ, data: "" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting\Consent', value: "0", type: REG_SZ, data: "" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\Registration Wizard Control', value: "NoRegistration", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\SearchCompanion', value: "DisableContentFileUpdates", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows NT\Printers', value: "DisableHTTPPrinting", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows NT\Printers', value: "DisableWebPnPDownload", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\HandwritingErrorReports', value: "PreventHandwritingErrorReports", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\TabletPC', value: "PreventHandwritingDataSharing", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\WindowsMovieMaker', value: "WebHelp", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\WindowsMovieMaker', value: "CodecDownload", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\WindowsMovieMaker', value: "WebPublish", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\SQMClient\Windows', value: "CEIPEnable", type: REG_DWORD, data: "0" }
+    # ---> Block CEIP, Telemetry Client and Windows Insider via Firewall
+    # "Block Cortana ActionUriServer.exe"="v2.26|Action=Block|Active=TRUE|Dir=Out|RA42=IntErnet|RA62=IntErnet|App=C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\ActionUriServer.exe|Name=Block Cortana ActionUriServer.exe|Desc=Block Cortana Outbound UDP/TCP Traffic|"
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Services\SharedAccess\Defaults\FirewallPolicy\FirewallRules', value: "Block-Unified-Telemetry-Client", type: REG_SZ, data: 'v2.31|Action=Block|Active=TRUE|Dir=Out|RA42=IntErnet|RA62=IntErnet|App=%SystemRoot%\system32\svchost.exe|Svc=DiagTrack|Name=Block-Unified-Telemetry-Client|Desc=Block-Unified-Telemetry-Client|EmbedCtxt=DiagTrack|' }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Services\SharedAccess\Defaults\FirewallPolicy\FirewallRules', value: "Block-Windows-Error-Reporting", type: REG_SZ, data: 'v2.31|Action=Block|Active=TRUE|Dir=Out|RA42=IntErnet|RA62=IntErnet|App=%SystemRoot%\system32\svchost.exe|Svc=WerSvc|Name=Block-Unified-Error-Reporting|Desc=Block-Windows-Error-Reporting|EmbedCtxt=WerSvc|' }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules', value: "Block-Unified-Telemetry-Client", type: REG_SZ, data: 'v2.31|Action=Block|Active=TRUE|Dir=Out|RA42=IntErnet|RA62=IntErnet|App=%SystemRoot%\system32\svchost.exe|Svc=DiagTrack|Name=Block-Unified-Telemetry-Client|Desc=Block-Unified-Telemetry-Client|EmbedCtxt=DiagTrack|' }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules', value: "Block-Windows-Error-Reporting", type: REG_SZ, data: 'v2.31|Action=Block|Active=TRUE|Dir=Out|RA42=IntErnet|RA62=IntErnet|App=%SystemRoot%\system32\svchost.exe|Svc=WerSvc|Name=Block-Unified-Telemetry-Client|Desc=Block-Windows-Error-Reporting|EmbedCtxt=WerSvc|' }
+  # === Add primary intranet search location - https://www.google.com/
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "PrimaryIntranetSearchScopeUrl", type: REG_SZ, data: "http://www.google.com/search?q={searchTerms}" }
+    # === Add secondary intranet search locations - https://duckduckgo.com/
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "SecondaryIntranetSearchScopeUrl", type: REG_SZ, data: "https://duckduckgo.com/?kae=t&q={searchTerms}" }
+    # ------> https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCloudSearch
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "AllowCloudSearch", type: REG_DWORD, data: "2" }
+    # === Allow Cortana above lock screen - Disabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "AllowCortanaAboveLock", type: REG_DWORD, data: "0" }
+    # === Allow Cortana - Disabled
+    # ------> Once again 1 = Enabled; 0 = enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "AllowCortana", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "AllowCortanaInAAD", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "AllowCortanaInAADPathOOBE", type: REG_DWORD, data: "0" }
+    # === Allow search and Cortana to use location - Disabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "AllowSearchToUseLocation", type: REG_DWORD, data: "0" }
+    # === Don't search the web or display web results in Search - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "ConnectedSearchUseWeb", type: REG_DWORD, data: "0" }
+    # === Don't search the web or display web results in Search over metered connections - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "ConnectedSearchUseWebOverMeteredConnections", type: REG_DWORD, data: "0" }
+    # === Do not allow web search - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "DisableWebSearch", type: REG_DWORD, data: "1" }
+    # === Set the SafeSearch setting for Search - Off (Disabled)
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "ConnectedSearchSafeSearch", type: REG_DWORD, data: "3" }
+    # === Set what information is shared in Search - Anonymous info
+    # ------> Anonymous info: Share usage information but don't share search history, Microsoft account info or specific location.
+    # ------> https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search', value: "ConnectedSearchPrivacy", type: REG_DWORD, data: "3" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Search', value: "CortanaConsent", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Search', value: "BingSearchEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Speech_OneCore\Preferences', value: "VoiceActivationEnableAboveLockscreen", type: REG_DWORD, data: "0" }
+    # === Allow notifications to disable security intelligence based reports to Microsoft MAPS - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "SignatureDisableNotification", type: REG_DWORD, data: "0" }
+    # === Allow real-time security intelligence updates based on reports to Microsoft MAPS - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "RealtimeSignatureDelivery", type: REG_DWORD, data: "0" }
+    # === Allow security intelligence updates from Microsoft Update - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "ForceUpdateFromMU", type: REG_DWORD, data: "0" }
+    # === Allow security intelligence updates when running on battery power - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "DisableScheduledSignatureUpdateOnBattery", type: REG_DWORD, data: "1" }
+    # === Check for the latest virus and spyware security intelligence on startup - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "UpdateOnStartUp", type: REG_DWORD, data: "0" }
+    # === Initiate security intelligence update on startup - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "DisableUpdateOnStartupWithoutEngine", type: REG_DWORD, data: "1" }
+    # === Turn on scan after security intelligence update - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "DisableScanOnUpdate", type: REG_DWORD, data: "1" }
+    # === Configure App Install Control - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "ConfigureAppInstallControlEnabled", type: REG_DWORD, data: "0" }
+    # === Pick one of the following settings - Turn off app recommendations
+    # ------> https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.SmartScreen::ConfigureAppInstallControl
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "ConfigureAppInstallControl", type: REG_DWORD, data: "0" }
+    # === Configure Windows Defender SmartScreen - Disabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "EnableSmartScreen", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe', value: "Debugger", type: REG_SZ, data: '%%windir%%\System32\taskkill.exe' }
+    # === Configure Windows Defender SmartScreen (Microsoft Edge) - Disabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: "EnabledV9", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: "EnabledV9", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray', value: "HideSystray", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', value: "SecurityHealth", operation: delete }
+  - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', operation: add }
+    # === Remove the Security and Maintenance icon - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\Explorer', value: "HideSCAHealth", type: REG_DWORD, data: "1" }
+    # === Turn off feature advertisement balloon notifications - Enabled
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\Windows\Explorer', value: "NoBalloonFeatureAdvertisements", type: REG_DWORD, data: "1" }
+    # === Allow suggested apps in Windows Ink Workspace - Disabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace', value: "AllowSuggestedAppsInWindowsInkWorkspace", type: REG_DWORD, data: "0" }
+    # === (Windows Defender) Disable Non Critical Notifications - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications', value: "DisableEnhancedNotifications", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\PriorityControl', value: "Win32PrioritySeparation", type: REG_DWORD, data: "38" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContent-353698Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SystemPaneSuggestionsEnabled", type: REG_DWORD, data: "0" }
+    # === Autocorrect misspelled words - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableAutocorrection", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableAutocorrection", type: REG_DWORD, data: "0" }
+    # === Highlight misspelled words - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableSpellchecking", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableSpellchecking", type: REG_DWORD, data: "0" }
+    # === Show text suggestions as I type on the software keyboard - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableTextPrediction", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableTextPrediction", type: REG_DWORD, data: "0" }
+    # === Add a space after I choose text suggestion - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnablePredictionSpaceInsertion", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnablePredictionSpaceInsertion", type: REG_DWORD, data: "0" }
+    # === Add a full stop after I double-tap the spacebar - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableDoubleTapSpace", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\TabletTip\1.7', value: "EnableDoubleTapSpace", type: REG_DWORD, data: "0" }
+    # === Typing insights - Off
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Input\Settings', value: "InsightsEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Input\Settings', value: "InsightsEnabled", type: REG_DWORD, data: "0" }
+    # === Show text suggestions as I type - Off
+    # ------> Hardware keyboard
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Input\Settings', value: "EnableHwkbTextPrediction", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Input\Settings', value: "EnableHwkbTextPrediction", type: REG_DWORD, data: "0" }
+    # === Autocorrect misspelled words I type - Off
+    # ------> Hardware keyboard
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Input\Settings', value: "EnableHwkbAutocorrection", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Input\Settings', value: "EnableHwkbAutocorrection", type: REG_DWORD, data: "0" }
+    # === Show text suggestions based on the recognized languages that you are typing - Off
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Input\Settings', value: "MultilingualEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Input\Settings', value: "MultilingualEnabled", type: REG_DWORD, data: "0" }
+    # ======> AutoPlay
+    # === Use AutoPlay for all media and devices - Off
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers', value: "DisableAutoplay", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager', value: "SubscribedContent-338388Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SYSTEM\Maps', value: "UpdateOnlyOnWifi", type: REG_DWORD, data: "1" }
+    # === Automatically update maps - Off
+  - !registryValue: { path: 'HKLM\SYSTEM\Maps', value: "AutoUpdateEnabled", type: REG_DWORD, data: "0" }
+    # ======> Sync your settings
+    # === Do not sync app settings - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableApplicationSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn "app settings" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableApplicationSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync browser settings - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableWebBrowserSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn "browser" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableWebBrowserSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync desktop personalization - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableDesktopThemeSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn "desktop personalization" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableDesktopThemeSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync on metered connections - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableSyncOnPaidNetwork", type: REG_DWORD, data: "1" }
+    # === Do not sync other Windows settings - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableWindowsSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn "other Windows settings" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableWindowsSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync passwords - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableCredentialsSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn "passwords" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableCredentialsSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync personalize - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisablePersonalizationSettingSync", type: REG_DWORD, data: "2" }
+    # === Allow users to turn "personalize" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisablePersonalizationSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Do not sync start settings - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableStartLayoutSettingSync", type: REG_DWORD, data: "2" }
+    # ===  Allow users to turn "start layout" syncing on - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync', value: "DisableStartLayoutSettingSyncUserOverride", type: REG_DWORD, data: "1" }
+    # === Let apps use advertising ID to make ads more interesting to you based on your app activity - Off
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo', value: "Enabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo', value: "Enabled", type: REG_DWORD, data: "0" }
+    # === Turn off the advertising ID - Enabled
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows\AdvertisingInfo', value: "DisabledByGroupPolicy", type: REG_DWORD, data: "1" }
+    # === Allow webistes to provide locally relevant content by accessing my language list - Off
+    # ------> Do not let websites access local language list - Enabled
+  - !registryValue: { path: 'HKCU\Control Panel\International\User Profile', value: "HttpAcceptLanguageOptOut", type: REG_DWORD, data: "1" }
+    # === Online speech recognition - Off
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy', value: "HasAccepted", type: REG_DWORD, data: "0" }
+    # ======> Inking & typing personalization
+    # === Getting to know you - Off
+    # ------> https://www.tenforums.com/tutorials/118127-turn-off-inking-typing-personalization-windows-10-a.html
+  - !registryValue: { path: 'HKCU\Software\Microsoft\InputPersonalization', value: "RestrictImplicitInkCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\InputPersonalization', value: "RestrictImplicitTextCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore', value: "HarvestContacts", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Personalization\Settings', value: "AcceptedPrivacyPolicy", type: REG_DWORD, data: "0" }
+    # === Turn off automatic learning - Enabled
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitInkCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitTextCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitInkCollection", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization', value: "RestrictImplicitTextCollection", type: REG_DWORD, data: "1" }
+    # === Allow users to enable online speech recognition services - Disabled
+    # ------> If this policy is disabled, speech services will be disabled, and users cannot enable speech services via settings.
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization', value: "AllowInputPersonalization", type: REG_DWORD, data: "0" }
+    # ======> Diagnostics & feedback
+    # === Diagnostic data - Disabled
+    # ------> Disable Telemetry - Enabled
+  - !registryValue: { path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection', value: "AllowTelemetry", type: REG_DWORD, data: "0" }
+    # === Improve inking and typing recognition - Disabled
+  - !registryValue: { path: 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput', value: "AllowLinguisticDataCollection", type: REG_DWORD, data: "0" }
+    # === Improve inking and typing recognition - Disabled
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Input\TIPC', value: "Enabled", type: REG_DWORD, data: "0" }
+    # === Tailored experiences - Off
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy', value: "TailoredExperiencesWithDiagnosticDataEnabled", type: REG_DWORD, data: "0" }
+    # === View diagnostic data - Off
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\EventTranscriptKey', value: "EnableEventTranscript", type: REG_DWORD, data: "0" }
+    # === Feedback frequency - Never
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Siuf\Rules', value: "NumberOfSIUFInPeriod", type: REG_DWORD, data: "0" }
+    # ======> Activity history
+    # === Allow upload of User Activities - Disabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: "UploadUserActivities", type: REG_DWORD, data: "0" }
+    # === Allow publishing of User Activities - Disabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: "PublishUserActivities", type: REG_DWORD, data: "0" }
+    # === Enables Activity Feed - Disabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: "EnableActivityFeed", type: REG_DWORD, data: "0" }
+    # === Motion - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\activity', value: "Value", type: REG_SZ, data: "Deny" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\activity', value: "Value", type: REG_SZ, data: "Deny" }
+    # === Account info - Off
+  - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation', value: "Value", type: REG_SZ, data: "Deny" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation', value: "Value", type: REG_SZ, data: "Deny" }
+    # === Disable Wi-Fi Sense - Enabled
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config', value: "AutoConnectAllowedOEM", type: REG_DWORD, data: "0" }
+    # === Disable Wi-Fi Sense telemetry
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting', value: "value", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots', value: "value", type: REG_DWORD, data: "0" }
+    # === Prevent Malicious Software Removal Tool from installing - Enabled
+    # ------> https://winaero.com/blog/disable-malicious-software-removal-tool/
+  - !registryValue: { path: 'HKLM\SOFTWARE\Policies\Microsoft\MRT', value: "DontOfferThroughWUAU", type: REG_DWORD, data: "1" }
+    # === Disable Malicious Software Reporting tool diagnostic data - Enabled
+    # ------> https://admx.help/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\MRT', value: "DontReportInfectionInformation", type: REG_DWORD, data: "0" }
+    # ======> Delivery Optimization
+    # === Allow downloads from other PCs - Off
+    # ------> https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.DeliveryOptimization::DownloadMode
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings', value: "DownloadMode", type: REG_SZ, data: "0" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications', value: "ConfigureChatAutoInstall", type: REG_DWORD, data: "0" }

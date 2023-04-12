@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    brranches:
+      - trunk
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Dependencies
+        run: sudo apt-get install -y libxml-xpath-perl
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set release name
+        run: echo "RELEASE_NAME=`xpath -e 'Playbook/Version/text()' -q ./src/playbook.conf`" >> $GITHUB_ENV
+
+      - name: Set file name
+        run: echo "FILENAME=pebbleOS-${{ env.RELEASE_NAME }}.apbx" >> $GITHUB_ENV
+
+      - name: Archive content
+        run: |
+          7z a -p${{ secrets.AME_PWD }} -mhe=on "${{ env.FILENAME }}" ./src/*
+
+      - name: Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          tag: ${{ env.RELEASE_NAME }}
+          file: ${{ env.FILENAME }}
+          asset_name: ${{ env.FILENAME }}
+          overwrite: true

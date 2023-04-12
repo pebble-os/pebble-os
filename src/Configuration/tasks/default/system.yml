@@ -1,0 +1,68 @@
+---
+title: System
+description: Removal of any Windows system-related bloat
+privilege: TrustedInstaller
+actions:
+  ########################################################################################
+  ########################################################################################
+  ########################################################################################
+  - !writeStatus: { status: "Configuring Windows features" }
+
+  - !cmd: { command: 'DISM /Online /Enable-Feature /FeatureName:"DirectPlay" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2Root" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"MSRDC-Infrastructure" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"Printing-Foundation-InternetPrinting-Client" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"SmbDirect" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"WorkFolders-Client" /NoRestart' }
+  - !cmd: { command: "DISM /Online /Disable-Feature /FeatureName:Printing-XPSServices-Features /NoRestart" }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"App.StepsRecorder~~~~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"App.Support.QuickAssist~~~~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"Hello.Face.18967~~~~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"Language.Handwriting~~~en-US~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"Language.Speech~~~en-US~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"Language.TextToSpeech~~~en-US~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"MathRecognizer~~~~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"OpenSSH.Client~~~~0.0.1.0" /NoRestart' }
+  - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"Print.Fax.Scan~~~~0.0.1.0" /NoRestart' }
+
+  ########################################################################################
+  ########################################################################################
+  ########################################################################################
+  - !writeStatus: { status: "Removing system packages" }
+
+  - !service:
+    name: "wuauserv"
+    operation: stop
+    # From NTLite. Known vulnerabilities
+  - !systemPackage: { name: "Microsoft-Windows-Indeo4-Codecs", arch: x86, language: "neutral" }
+  - !systemPackage: { name: "Microsoft-Windows-Indeo5-Codecs", arch: x86, language: "neutral" }
+  - !file: { path: 'C:\System32\Tasks\Microsoft\Windows\Feedback' }
+
+  ########################################################################################
+  ########################################################################################
+  ########################################################################################
+  - !writeStatus: { status: "Other Tasks" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', value: "SecurityHealth", operation: delete }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe', value: "Debugger", type: REG_SZ, data: '%%windir%%\System32\taskkill.exe' }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "DefaultFileTypeRisk", type: REG_DWORD, data: "6152" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: "SaveZoneInformation", type: REG_DWORD, data: "1" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "LowRiskFileTypes", type: REG_SZ, data: ".avi;.bat;.com;.cmd;.exe;.htm;.html;.lnk;.mpg;.mpeg;.mov;.mp3;.msi;.m3u;.rar;.reg;.txt;.vbs;.wav;.zip;" }
+  - !registryValue: { path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "ModRiskFileTypes", type: REG_SZ, data: ".bat;.exe;.reg;.vbs;.chm;.msi;.js;.cmd" }
+  - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer', value: "SmartScreenEnabled", type: REG_SZ, data: "Off" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "ConfigureAppInstallControlEnabled", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "ConfigureAppInstallControl", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "EnableSmartScreen", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: "EnabledV9", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKLM\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: "EnabledV9", type: REG_DWORD, data: "0" }
+  # Rdyboost / sysmain related
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}', value: "LowerFilters", type: REG_MULTI_SZ, data: 'fvevol\0iorate' }
+  - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager', value: "HeapDeCommitFreeBlockThreshold", type: REG_DWORD, data: "0" }
+  - !registryValue: { path: 'HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32', value: "", type: REG_SZ, data: "" }
+  - !run: { exe: "PowerShell", args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-MMAgent -mc"', showOutput: false, showError: false }
+  - !cmd: { exeDir: true, command: '@echo Disable-MMAgent -MC; ForEach($v in (Get-Command -Name "Set-ProcessMitigation").Parameters["Disable"].Attributes.ValidValues){Set-ProcessMitigation -System -Disable $v.ToString().Replace(" ", "").Replace("`n", "")}; rm $PSCommandPath> MC_PM.ps1' }
+  - !run: { exeDir: true, exe: "powershell", args: '-windowstyle hidden -ExecutionPolicy Bypass -C "& ''./MC_PM.ps1''"' }
+
+  - !run:
+    exeDir: true
+    exe: "OTHER.cmd"
