@@ -8,7 +8,8 @@ features:
   - tasks\default\programs.yml
   - tasks\default\system.yml
   - tasks\default\privacy.yml
+  - tasks\default\security.yml
   - tasks\default\config.yml
   - tasks\default\files.yml
   - tasks\default\services.yml
-# debt: organize!!
+# DEBT: organize!!

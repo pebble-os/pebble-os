@@ -4,3 +4,6 @@
 [submodule "sources/atlasos"]
 	path = sources/atlasos
 	url = https://github.com/Atlas-OS/Atlas.git
+[submodule "sources/windows-stig"]
+	path = sources/windows-stig
+	url = https://github.com/simeononsecurity/Standalone-Windows-STIG-Script.git

@@ -1,3 +1,21 @@
 {
-  "prettier.printWidth": 500
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "editor.tabSize": 2,
+  "yaml.format.enable": true,
+  "yaml.keyOrdering": true,
+  "yaml.format.printWidth": 500,
+  "yaml.format.singleQuote": true,
+  "yaml.schemaStore.enable": false,
+  "yaml.validate": false,
+  // DEBT: Doesn't seem to work?
+  "yaml.customTags": [
+    "!registryValue mapping",
+    "!registryKey mapping",
+    "!run mapping",
+    "!appx mapping",
+    "!writeStatus mapping",
+    "!cmd mapping"
+  ]
 }

@@ -58,6 +58,27 @@ That is to say,
 - Generally, there should hopefully be much less extremely niche, peculiar issues you'll come across which send you on a 3 hour Google triage only to find out (or rather, make you guess) that it's related to some component you removed from the OS that is literally impossible or unfeasable to get back.
 - Should reduce or eliminate the need to do any entire OS re-installs, should pebbleOS update
 
+# 🛠️ Installation
+
+Before installing, you **ensure you have a browser installer** handy! After the Playbook is finished, Edge is removed. If it was your only browser, you won't be able to get online without an installer! (If you prefer Edge, you can always [re-install that](https://www.microsoft.com/en-us/edge/business/download))
+
+Installation is unlike previous methods which often involved creating a bootable USB with an ISO file. Instead, we run Ameliorated's tool on an active Windows installation.
+
+Download the required files:
+
+- [AME Wizard from Amerliorated's website](https://ameliorated.io/)
+
+- [The current pebbleOS release](https://github.com/pebble-os/pebble-os/releases/latest)
+
+Import the <img src="icon.svg" height="14" alt="pebbleOS icon"> pebbleOS Playbook in the AME Wizard and run it! Once the Playbook finishes running, Windows will restart (or you should restart Windows) and the process is complete!
+
+# 💝 Credits
+
+| [🎗️ Ameliroated](https://ameliorated.io/)                                                               | [🎗️ NTLite](https://ntlite.com/)                                                                                    | [🎗️ ReviOS](https://revi.cc/)                                         |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **[🎗️ Atlas](https://atlasos.net/)**                                                                    | **[🎗️ simeononsecurity (Windows STIG Script)](https://github.com/simeononsecurity/Standalone-Windows-STIG-Script)** | **[🎗️ Windows Spy Blocker](https://crazymax.dev/WindowsSpyBlocker/)** |
+| **[🎗️ MS Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319)** | **[🎗️ My Digital Life Forums](https://forums.mydigitallife.net)**                                                   |
+
 # ⚠ Notes
 
 - As of writing, I have only tested this on Windows 10 22H2 and Windows 10 LTSC 2021. It will likely run just fine on Windows 11, but I'd like to look around and see if there are more relevant registry / GPO settings to apply specifically on Windows 11 (such as hiding the "Recommended" section on the Start Menu, etc.)
@@ -69,15 +90,3 @@ That is to say,
 - Most breakage will likely stem from a disabled service. Check [`src/Configuration/tasks/default/services.yml`](src/Configuration/tasks/default/services.yml) for a list of modified services!
 
 - TODO: Windows Defender, performance from Spectre/Meltdown tradeoff note, howto
-
-# 🛠️ Installation
-
-Installation is unlike previous methods which often involved creating a bootable USB with an ISO file. Instead, we run Ameliorated's tool on an active Windows installation.
-
-Download the required files:
-
-- [AME Wizard from Amerliorated's website](https://ameliorated.io/)
-
-- [The current pebbleOS release](https://github.com/pebble-os/pebble-os/releases/latest)
-
-Import the <img src="icon.svg" height="14" alt="pebbleOS icon"> pebbleOS Playbook in the AME Wizard and run it! Once the Playbook finishes running, Windows will restart (or you should restart Windows) and the process is complete!
