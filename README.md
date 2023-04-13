@@ -66,7 +66,7 @@ That is to say,
 
 - Playbook, at least on my machine (but not test VMs?), errors before the process can even begin, as Amelieroated fails to disable Windows Defender. I can fix this by running the commands it is complaining about in the Error Log manually through a [RunAsTi](https://github.com/jschicht/RunAsTI) Command Prompt. Not sure why this happens.
 
-- Most breakage will likely stem from a disabled service. Check [`src\Configuration\tasks\default\services.yml`](src\Configuration\tasks\default\services.yml) for a list of modified services!
+- Most breakage will likely stem from a disabled service. Check [`src/Configuration/tasks/default/services.yml`](src/Configuration/tasks/default/services.yml) for a list of modified services!
 
 - TODO: Windows Defender, performance from Spectre/Meltdown tradeoff note, howto
 
