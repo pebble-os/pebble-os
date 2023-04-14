@@ -8,6 +8,7 @@
   "yaml.format.printWidth": 500,
   "yaml.format.singleQuote": true,
   "yaml.schemaStore.enable": false,
+  "yaml.format.bracketSpacing": false,
   "yaml.validate": false,
   // DEBT: Doesn't seem to work?
   "yaml.customTags": [
