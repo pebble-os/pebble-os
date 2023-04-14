@@ -3,9 +3,6 @@ title: Services
 description: Configure Services
 privilege: TrustedInstaller
 actions:
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure Services' }
 
   - !taskKill: { name: 'SecurityHealthService' }
@@ -83,9 +80,6 @@ actions:
   - !service: { name: 'wscsvc', operation: change, startup: 4 }
   - !service: { name: 'WSearch', operation: change, startup: 4 }
 
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure Driver Services' }
   - !service: { name: '3ware', operation: change, startup: 4 }
   - !service: { name: 'ADP80XX', operation: change, startup: 4 }

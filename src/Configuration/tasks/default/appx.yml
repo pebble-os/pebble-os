@@ -3,9 +3,6 @@ title: APPX
 description: Removal of any Windows APPX bloat
 privilege: TrustedInstaller
 actions:
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Remove APPX packages' }
   - !registryValue:
     path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance'
@@ -73,9 +70,6 @@ actions:
   - !appx: { name: '*WindowsMaps*', type: family }
   - !appx: { name: '*WindowsSoundRecorder*', type: family }
 
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Deprovision APPX packages' }
   # Deprovision removed apps
   - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned', operation: add }

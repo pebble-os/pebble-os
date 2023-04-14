@@ -3,25 +3,15 @@ title: Configuration
 description: Configure Windows settings
 privilege: TrustedInstaller
 actions:
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure Boot settings' }
   - !run: { exe: 'bcdedit', args: '/deletevalue useplatformclock', showOutput: false, showError: false }
   - !run: { exe: 'bcdedit', args: '/set disabledynamictick yes', showOutput: false, showError: false }
   - !run: { exe: 'bcdedit', args: '/set bootmenupolicy Legacy', showOutput: false, showError: false }
   - !run: { exe: 'bcdedit', args: '/set lastknowngood yes', showOutput: false, showError: false }
 
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure NTFS settings' }
   - !run: { exe: 'fsutil', args: 'behavior set disableLastAccess 3', showOutput: false }
   - !run: { exe: 'fsutil', args: 'behavior set disable8dot3 1', showOutput: false }
-
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
 
   - !writeStatus: { status: 'Configure Power Scheme' }
   - !run: { exe: 'powercfg', args: '/hibernate off', showOutput: false, showError: false }
@@ -42,9 +32,6 @@ actions:
   - !run: { exe: 'wevtutil', args: 'sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false', showOutput: false }
   - !run: { exe: 'wevtutil', args: 'sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false', showOutput: false }
 
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure Windows settings' }
 
   # Disable System Restore on All Drives by default, can be re-enabled.
@@ -236,18 +223,8 @@ actions:
   - !registryValue: { path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'LogEvent', data: '0', type: REG_DWORD }
   - !registryValue: { path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'DisplayParameters', data: '1', type: REG_DWORD }
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize', value: 'StartupDelayInMSec', data: '0', type: REG_DWORD }
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure Scheduled Tasks' }
 
-  - !run: { exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /disable', showOutput: false }
-  - !run: { exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /disable', showOutput: false }
-  - !run: { exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable', showOutput: false }
-  - !run: { exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\WindowsUpdate\Scheduled Start" /disable', showOutput: false }
-  - !run: { exe: 'wevtutil', args: 'sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false', showOutput: false }
-  - !run: { exe: 'wevtutil', args: 'sl Microsoft-Windows-SleepStudy/Diagnostic /e:false', showOutput: false }
-  - !run: { exe: 'wevtutil', args: 'sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false', showOutput: false }
   - !scheduledTask: { path: '\Microsoft\Windows\Application Experience\AitAgent', operation: delete }
   - !scheduledTask: { path: '\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser', operation: disable }
   - !scheduledTask: { path: '\Microsoft\Windows\Application Experience\PcaPatchDbTask', operation: disable }
@@ -265,9 +242,6 @@ actions:
   - !scheduledTask: { path: '\Microsoft\Windows\Windows Error Reporting\QueueReporting', operation: disable }
   - !scheduledTask: { path: '\Microsoft\Windows\WwanSvc\OobeDiscovery', operation: disable }
 
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Registry settings' }
 
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: 'HideSCAMeetNow', type: REG_DWORD, data: '1' }
@@ -391,39 +365,19 @@ actions:
   - !registryValue: { path: 'HKU\.DEFAULT\Control Panel\Mouse', value: 'MouseThreshold1', type: REG_SZ, data: '0' }
   - !registryValue: { path: 'HKU\.DEFAULT\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0' }
 
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Group Policy' }
 
-  - !cmd:
-    exeDir: true
-    command: 'robocopy "GPO" "C:\Temp\GPO" /E /PURGE /IM /IT /NP'
+  - !cmd: { exeDir: true, command: 'robocopy "GPO" "C:\Temp\GPO" /E /PURGE /IM /IT /NP' }
+  - !run: { exeDir: true, exe: 'GPO.cmd' }
+  - !cmd: { exeDir: true, command: 'gpupdate /Force' }
 
-  - !run:
-    exeDir: true
-    exe: 'GPO.cmd'
-
-  - !cmd:
-    exeDir: true
-    command: 'gpupdate /Force'
-
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Other settings' }
 
   - !run: { exe: 'net', args: 'user defaultuser0 /delete', showOutput: false, showError: false }
   - !run: { exe: 'lodctr', args: '/r', showOutput: false, showError: false }
-  - !run: { exe: 'lodctr', args: '/r', showOutput: false, showError: false }
   - !run: { exe: 'winmgmt', args: '/resyncperf' }
     # Mitigate against HiveNightmare/SeriousSam
   - !run: { exe: 'icacls', args: '"C:\Windows\system32\config\*.*" /inheritance:e', showOutput: false }
-  - !powerShell:
-    command: 'Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient, ms_server, ms_lldp, ms_lltdio, ms_rspndr'
-  - !run:
-    exe: 'powershell.exe'
-    args: '-NoProfile -ExecutionPolicy Bypass -File "DEVICES.ps1"'
-    exeDir: true
-    wait: true
+  - !powerShell: { command: 'Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient, ms_server, ms_lldp, ms_lltdio, ms_rspndr' }
+  - !run: { exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "DEVICES.ps1"', exeDir: true, wait: true }
   - !service: { name: 'SysMain', operation: change, startup: 4 }

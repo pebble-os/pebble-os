@@ -3,9 +3,6 @@ title: Privacy
 description: Configure privacy-related seettings
 privilege: TrustedInstaller
 actions:
-  ########################################################################################
-  #########################################################################################
-  ##########################################################################################
   - !writeStatus: { status: 'Configure Privacy settings' }
   - !run: { exe: 'PowerShell', args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-WindowsErrorReporting"', showOutput: false, showError: false }
   - !run: { exe: 'setx', args: 'DOTNET_CLI_TELEMETRY_OPTOUT 1' }
