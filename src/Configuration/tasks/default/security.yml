@@ -3,171 +3,171 @@ title: Security
 description: Security-related Tweaks
 privilege: TrustedInstaller
 actions:
-  - !writeStatus: {status: "Configure Security Settings"}
+  - !writeStatus: {status: 'Configure Security Settings'}
 
   # Disable LLMNR
   - !registryKey: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', operation: add}
-  - !registryValue: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', value: "EnableMulticast", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', value: 'EnableMulticast', type: REG_DWORD, data: '0'}
 
   # Disable WDigest
-  - !registryValue: {path: 'HKLM:\System\CurrentControlSet\Control\SecurityProviders\Wdigest', value: "UseLogonCredential", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKLM:\System\CurrentControlSet\Control\SecurityProviders\Wdigest', value: 'UseLogonCredential', type: REG_DWORD, data: '0'}
 
   # Disable TCP Timestamps
-  - !cmd: {command: "netsh int tcp set global timestamps=disabled"}
+  - !cmd: {command: 'netsh int tcp set global timestamps=disabled'}
 
   # Printer related
-  - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: "DisableHTTPPrinting", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: "DisableWebPnPDownload", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: 'DisableHTTPPrinting', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: 'DisableWebPnPDownload', type: REG_DWORD, data: '1'}
 
   # Other security mitigations not easily convertible to yaml format
-  - !run: {exe: "powershell.exe", args: '-NoProfile -ExecutionPolicy Bypass -File "SECURITY.ps1"', exeDir: true, wait: true}
+  - !run: {exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "SECURITY.ps1"', exeDir: true, wait: true}
 
   # Disable and delete adobe font type manager
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers', value: "Adobe Type Manager", operation: delete}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows', value: "DisableATMFD", data: "1", type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers', value: 'Adobe Type Manager', operation: delete}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows', value: 'DisableATMFD', data: '1', type: REG_DWORD}
 
   # Disable USB autorun/play
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoAutorun", data: "1", type: REG_DWORD}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers', value: "DisableAutoplay", data: "1", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: "NoDriveTypeAutoRun", data: "255", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: "NoAutoplayfornonVolume", data: "1", type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: 'NoAutorun', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers', value: 'DisableAutoplay', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: 'NoDriveTypeAutoRun', data: '255', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: 'NoAutoplayfornonVolume', data: '1', type: REG_DWORD}
 
   # From NTLite. Known vulnerabilities with Intel Indeo
-  - !service: {name: "wuauserv", operation: stop}
-  - !systemPackage: {name: "Microsoft-Windows-Indeo4-Codecs", arch: x86, language: "neutral"}
-  - !systemPackage: {name: "Microsoft-Windows-Indeo5-Codecs", arch: x86, language: "neutral"}
+  - !service: {name: 'wuauserv', operation: stop}
+  - !systemPackage: {name: 'Microsoft-Windows-Indeo4-Codecs', arch: x86, language: 'neutral'}
+  - !systemPackage: {name: 'Microsoft-Windows-Indeo5-Codecs', arch: x86, language: 'neutral'}
 
   # SMB vulnerability mitigation
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters', value: "DisableCompression", data: "1", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters', value: "RestrictNullSessAccess", data: "1", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters', value: "DisableBandwidthThrottling", data: "1", type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters', value: 'DisableCompression', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters', value: 'RestrictNullSessAccess', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters', value: 'DisableBandwidthThrottling', data: '1', type: REG_DWORD}
 
   # Disable Remote Assistance
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance', value: "fAllowFullControl", data: "0", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance', value: "fAllowToGetHelp", data: "0", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance', value: "fEnableChatControl", data: "0", type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance', value: 'fAllowFullControl', data: '0', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance', value: 'fAllowToGetHelp', data: '0', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance', value: 'fEnableChatControl', data: '0', type: REG_DWORD}
 
   # Restrict Anonymous Account enumeration
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: "RestrictAnonymous", data: "1", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: "RestrictAnonymousSAM", data: "1", type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RestrictAnonymous', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RestrictAnonymousSAM', data: '1', type: REG_DWORD}
 
   # Enable strong crypto for dot net
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\.NetFramework\v4.0.30319', value: "SchUseStrongCrypto", data: "1", type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319', value: "SchUseStrongCrypto", data: "1", type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\.NetFramework\v4.0.30319', value: 'SchUseStrongCrypto', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319', value: 'SchUseStrongCrypto', data: '1', type: REG_DWORD}
 
   # Adobe Security Improvements
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\JSPrefs', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\JSPrefs', value: "bEnableJS", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\JSPrefs', value: 'bEnableJS', type: REG_DWORD, data: '0'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Originals', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Originals', value: "bAllowOpenFile", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Originals', value: "bSecureOpenFile", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Originals', value: 'bAllowOpenFile', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Originals', value: 'bSecureOpenFile', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Privileged', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Privileged', value: "bProtectedMode", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\Privileged', value: 'bProtectedMode', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', value: "iProtectedView", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', value: "bEnhancedSecurityInBrowser", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', value: "bEnhancedSecurityStandalone", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', value: 'iProtectedView', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', value: 'bEnhancedSecurityInBrowser', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\DC\TrustManager', value: 'bEnhancedSecurityStandalone', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\JSPrefs', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\JSPrefs', value: "bEnableJS", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\JSPrefs', value: 'bEnableJS', type: REG_DWORD, data: '0'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Originals', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Originals', value: "bAllowOpenFile", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Originals', value: "bSecureOpenFile", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Originals', value: 'bAllowOpenFile', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Originals', value: 'bSecureOpenFile', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Privileged', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Privileged', value: "bProtectedMode", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\Privileged', value: 'bProtectedMode', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', value: "iProtectedView", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', value: "bEnhancedSecurityInBrowser", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', value: "bEnhancedSecurityStandalone", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', value: 'iProtectedView', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', value: 'bEnhancedSecurityInBrowser', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Adobe\Acrobat Reader\XI\TrustManager', value: 'bEnhancedSecurityStandalone', type: REG_DWORD, data: '1'}
 
     # Office Security Improvements
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', value: "WorkbookLinkWarnings", type: REG_DWORD, data: "2"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Excel\Security', value: 'WorkbookLinkWarnings', type: REG_DWORD, data: '2'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\PowerPoint', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\PowerPoint\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\PowerPoint\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\PowerPoint\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\PowerPoint\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\PowerPoint\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Options', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Options\vpref', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Options\vpref', value: "fNoCalclinksOnopen_90_1", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Options\vpref', value: 'fNoCalclinksOnopen_90_1', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\12.0\Word\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Options', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Options', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Options', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', value: "WorkbookLinkWarnings", type: REG_DWORD, data: "2"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Excel\Security', value: 'WorkbookLinkWarnings', type: REG_DWORD, data: '2'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\PowerPoint', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\PowerPoint\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\PowerPoint\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\PowerPoint\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\PowerPoint\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\PowerPoint\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Options', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Options', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Options', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Options\WordMail', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Options\WordMail', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Options\WordMail', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', value: "AllowDDE", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\14.0\Word\Security', value: 'AllowDDE', type: REG_DWORD, data: '0'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Options', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Options', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Options', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', value: "WorkbookLinkWarnings", type: REG_DWORD, data: "2"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Excel\Security', value: 'WorkbookLinkWarnings', type: REG_DWORD, data: '2'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\PowerPoint', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\PowerPoint\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\PowerPoint\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\PowerPoint\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\PowerPoint\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\PowerPoint\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Options', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Options', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Options', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Options\WordMail', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Options\WordMail', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Options\WordMail', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', value: "AllowDDE", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\15.0\Word\Security', value: 'AllowDDE', type: REG_DWORD, data: '0'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Options', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Options', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Options', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', value: "WorkbookLinkWarnings", type: REG_DWORD, data: "2"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Excel\Security', value: 'WorkbookLinkWarnings', type: REG_DWORD, data: '2'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\PowerPoint', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\PowerPoint\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\PowerPoint\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\PowerPoint\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\PowerPoint\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\PowerPoint\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Options', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Options', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Options', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Options\WordMail', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Options\WordMail', value: "DontUpdateLinks", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Options\WordMail', value: 'DontUpdateLinks', type: REG_DWORD, data: '1'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', value: "PackagerPrompt", type: REG_DWORD, data: "2"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', value: "VBAWarnings", type: REG_DWORD, data: "4"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', value: "AllowDDE", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', value: 'PackagerPrompt', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', value: 'VBAWarnings', type: REG_DWORD, data: '4'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\16.0\Word\Security', value: 'AllowDDE', type: REG_DWORD, data: '0'}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\Common', operation: add}
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\Common\Security', operation: add}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\Common\Security', value: "DisableAllActiveX", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\Common\Security', value: 'DisableAllActiveX', type: REG_DWORD, data: '1'}
 
   #########################################################
   ####################################################### Below are security features that are disabled that technically *reduce*
@@ -175,57 +175,57 @@ actions:
   #######################################################
 
   # (Disable!) Smartscreen
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe', value: "Debugger", type: REG_SZ, data: '%%windir%%\System32\taskkill.exe'}
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "DefaultFileTypeRisk", type: REG_DWORD, data: "6152"}
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: "SaveZoneInformation", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "LowRiskFileTypes", type: REG_SZ, data: ".avi;.bat;.com;.cmd;.exe;.htm;.html;.lnk;.mpg;.mpeg;.mov;.mp3;.msi;.m3u;.rar;.reg;.txt;.vbs;.wav;.zip;"}
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "ModRiskFileTypes", type: REG_SZ, data: ".bat;.exe;.reg;.vbs;.chm;.msi;.js;.cmd"}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer', value: "SmartScreenEnabled", type: REG_SZ, data: "Off"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "ConfigureAppInstallControlEnabled", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "ConfigureAppInstallControl", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: "EnableSmartScreen", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: "EnabledV9", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: "EnabledV9", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: "Enabledv9", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: "PreventOverride", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe', value: 'Debugger', type: REG_SZ, data: '%%windir%%\System32\taskkill.exe'}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: 'DefaultFileTypeRisk', type: REG_DWORD, data: '6152'}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: 'SaveZoneInformation', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: 'LowRiskFileTypes', type: REG_SZ, data: '.avi;.bat;.com;.cmd;.exe;.htm;.html;.lnk;.mpg;.mpeg;.mov;.mp3;.msi;.m3u;.rar;.reg;.txt;.vbs;.wav;.zip;'}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: 'ModRiskFileTypes', type: REG_SZ, data: '.bat;.exe;.reg;.vbs;.chm;.msi;.js;.cmd'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer', value: 'SmartScreenEnabled', type: REG_SZ, data: 'Off'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: 'ConfigureAppInstallControlEnabled', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: 'ConfigureAppInstallControl', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen', value: 'EnableSmartScreen', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: 'EnabledV9', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\MicrosoftEdge\PhishingFilter', value: 'EnabledV9', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: 'Enabledv9', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter', value: 'PreventOverride', type: REG_DWORD, data: '0'}
   # (Disable!) Device Guard settings
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: "EnableVirtualizationBasedSecurity", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: "Locked", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: "RequirePlatformSecurityFeatures", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "ChangedInBootCycle", operation: delete}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "Enabled", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "HVCIMATRequired", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "Locked", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: "WasEnabledBy", operation: delete}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Lsa', value: "LsaCfgFlags", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: 'EnableVirtualizationBasedSecurity', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: 'Locked', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard', value: 'RequirePlatformSecurityFeatures', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'ChangedInBootCycle', operation: delete}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'Enabled', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'HVCIMATRequired', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'Locked', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'WasEnabledBy', operation: delete}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Lsa', value: 'LsaCfgFlags', type: REG_DWORD, data: '0'}
   # (Disable!) (DEBT: need note for)
-  - !run: {exe: "PowerShell", args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-MMAgent -mc"', showOutput: false, showError: false}
+  - !run: {exe: 'PowerShell', args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-MMAgent -mc"', showOutput: false, showError: false}
   - !cmd: {exeDir: true, command: '@echo Disable-MMAgent -MC; ForEach($v in (Get-Command -Name "Set-ProcessMitigation").Parameters["Disable"].Attributes.ValidValues){Set-ProcessMitigation -System -Disable $v.ToString().Replace(" ", "").Replace("`n", "")}; rm $PSCommandPath> MC_PM.ps1'}
-  - !run: {exeDir: true, exe: "powershell", args: '-windowstyle hidden -ExecutionPolicy Bypass -C "& ''./MC_PM.ps1''"'}
+  - !run: {exeDir: true, exe: 'powershell', args: '-windowstyle hidden -ExecutionPolicy Bypass -C "& ''./MC_PM.ps1''"'}
   # (Disable!) Windows Defender related
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications', value: "DisableEnhancedNotifications", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray', value: "HideSystray", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Reporting', value: "DisableGenericRePorts", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "DisableScanOnUpdate", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "DisableScheduledSignatureUpdateOnBattery", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "DisableUpdateOnStartupWithoutEngine", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "ForceUpdateFromMU", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "RealtimeSignatureDelivery", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "SignatureDisableNotification", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: "UpdateOnStartUp", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: "EnableVirtualizationBasedSecurity", type: REG_DWORD, data: "0"}
-  - !registryValue: {path: 'HKLM\SYSTEM\Policies\Microsoft\Windows\DeviceGuard', value: "HVCIMATRequired", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications', value: 'DisableEnhancedNotifications', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray', value: 'HideSystray', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Reporting', value: 'DisableGenericRePorts', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'DisableScanOnUpdate', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'DisableScheduledSignatureUpdateOnBattery', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'DisableUpdateOnStartupWithoutEngine', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'ForceUpdateFromMU', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'RealtimeSignatureDelivery', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'SignatureDisableNotification', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows Defender\Signature Updates', value: 'UpdateOnStartUp', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'EnableVirtualizationBasedSecurity', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\Policies\Microsoft\Windows\DeviceGuard', value: 'HVCIMATRequired', type: REG_DWORD, data: '0'}
   # (Disable!) Spectre / Meltdown related
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: "FeatureSettings", type: REG_DWORD, data: "1"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: "FeatureSettingsOverride", type: REG_DWORD, data: "3"}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: "FeatureSettingsOverrideMask", type: REG_DWORD, data: "3"}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: 'FeatureSettings', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverride', type: REG_DWORD, data: '3'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverrideMask', type: REG_DWORD, data: '3'}
   # (Disable!) (DEBT: need note for, related to mitigation options?)
-  - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: "csrss.exe", type: REG_SZ, data: "00000000000000000000000000000000"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: "dwm.exe", type: REG_SZ, data: "00000000000000000000000000000000"}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: "ntoskrnl.exe", type: REG_SZ, data: "00000000000000000000000000000000"}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: "csrss.exe", type: REG_SZ, data: "00000000000000000000000000000000"}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: "dwm.exe", type: REG_SZ, data: "00000000000000000000000000000000"}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: "ntoskrnl.exe", type: REG_SZ, data: "00000000000000000000000000000000"}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'csrss.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'dwm.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
+  - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'ntoskrnl.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'csrss.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'dwm.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'ntoskrnl.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
   # (Disable!) Change default file handling / risk types
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: "DefaultFileTypeRisk", type: REG_DWORD, data: "1808"}
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: "ScanWithAntiVirus", type: REG_DWORD, data: "1"}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: 'DefaultFileTypeRisk', type: REG_DWORD, data: '1808'}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: 'ScanWithAntiVirus', type: REG_DWORD, data: '1'}

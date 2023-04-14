@@ -3,74 +3,74 @@ title: APPX
 description: Removal of any Windows APPX bloat
 privilege: TrustedInstaller
 actions:
-  - !writeStatus: {status: "Remove APPX packages"}
+  - !writeStatus: {status: 'Remove APPX packages'}
   - !registryValue:
     path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance'
-    value: "Enabled"
+    value: 'Enabled'
     type: REG_DWORD
-    data: "0"
+    data: '0'
 
-  - !appx: {name: "*Clipchamp*", type: family}
-  - !appx: {name: "*Microsoft.549981C3F5F10*", type: family}
+  - !appx: {name: '*Clipchamp*', type: family}
+  - !appx: {name: '*Microsoft.549981C3F5F10*', type: family}
   # - !appx: { name: "*Microsoft.Advertising.Xaml*", type: family } # DEBT: dependencies?
-  - !appx: {name: "*Microsoft.BingNews*", type: family}
-  - !appx: {name: "*Microsoft.BingWeather*", type: family}
-  - !appx: {name: "*Microsoft.Calculator*", type: family}
+  - !appx: {name: '*Microsoft.BingNews*', type: family}
+  - !appx: {name: '*Microsoft.BingWeather*', type: family}
+  - !appx: {name: '*Microsoft.Calculator*', type: family}
   # - !appx: { name: "*Microsoft.ECApp*", type: family } #DEBT: unknown
-  - !appx: {name: "*Microsoft.GetHelp*", type: family}
-  - !appx: {name: "*Microsoft.Getstarted*", type: family}
-  - !appx: {name: "*Microsoft.Messaging*", type: family}
-  - !appx: {name: "*Microsoft.Microsoft3DViewer*", type: family}
-  - !appx: {name: "*microsoft.microsoftedge.stable*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftEdge*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftEdgeDevToolsClient*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftOfficeHub*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftPowerBIForWindows*", type: family}
-  - !appx: {name: "*microsoft.microsoftskydrive*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftSolitaireCollection*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftStickyNotes*", type: family}
-  - !appx: {name: "*Microsoft.MicrosoftTeamsforSurfaceHub*", type: family}
-  - !appx: {name: "*Microsoft.MixedReality.Portal*", type: family}
-  - !appx: {name: "*Microsoft.MSPaint*", type: family}
-  - !appx: {name: "*Microsoft.Office.Excel*", type: family}
-  - !appx: {name: "*Microsoft.Office.OneNote*", type: family}
-  - !appx: {name: "*Microsoft.Office.PowerPoint*", type: family}
-  - !appx: {name: "*Microsoft.Office.Word*", type: family}
-  - !appx: {name: "*Microsoft.People*", type: family}
-  - !appx: {name: "*Microsoft.PowerAutomateDesktop*", type: family}
-  - !appx: {name: "*Microsoft.SkypeApp*", type: family}
-  - !appx: {name: "*Microsoft.Todos*", type: family}
-  - !appx: {name: "*Microsoft.Wallet*", type: family}
-  - !appx: {name: "*Microsoft.Whiteboard*", type: family}
-  - !appx: {name: "*Microsoft.Windows.PeopleExperienceHost*", type: family}
-  - !appx: {name: "*Microsoft.WindowsAlarms*", type: family}
-  - !appx: {name: "*Microsoft.WindowsCamera*", type: family}
-  - !appx: {name: "*microsoft.windowscommunicationsapps*", type: family}
-  - !appx: {name: "*Microsoft.WindowsFeedbackHub*", type: family}
-  - !appx: {name: "*Microsoft.WindowsSoundRecorder*", type: family}
-  - !appx: {name: "*Microsoft.XboxApp*", type: family}
-  - !appx: {name: "*Microsoft.ZuneMusic*", type: family}
-  - !appx: {name: "*Microsoft.ZuneVideo*", type: family}
-  - !appx: {name: "*MicrosoftCorporationII.MailforSurfaceHub*", type: family}
-  - !appx: {name: "*MicrosoftCorporationII.MicrosoftFamily*", type: family}
-  - !appx: {name: "*MicrosoftCorporationII.QuickAssist*", type: family}
-  - !appx: {name: "*MicrosoftOfficeHub*", type: family}
-  - !appx: {name: "*MicrosoftTeams*", type: family}
-  - !appx: {name: "*MixedReality*", type: family}
-  - !appx: {name: "*OneDrive*", type: family}
-  - !appx: {name: "*OneNote*", type: family}
-  - !appx: {name: "*PowerAutomate*", type: family}
-  - !appx: {name: "*SecureAssessmentBrowser*", type: family}
-  - !appx: {name: "*SkypeApp*", type: family}
-  - !appx: {name: "*Spotify*", type: family}
-  - !appx: {name: "*Sticky*", type: family}
-  - !appx: {name: "*Sway*", type: family}
+  - !appx: {name: '*Microsoft.GetHelp*', type: family}
+  - !appx: {name: '*Microsoft.Getstarted*', type: family}
+  - !appx: {name: '*Microsoft.Messaging*', type: family}
+  - !appx: {name: '*Microsoft.Microsoft3DViewer*', type: family}
+  - !appx: {name: '*microsoft.microsoftedge.stable*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftEdge*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftEdgeDevToolsClient*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftOfficeHub*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftPowerBIForWindows*', type: family}
+  - !appx: {name: '*microsoft.microsoftskydrive*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftSolitaireCollection*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftStickyNotes*', type: family}
+  - !appx: {name: '*Microsoft.MicrosoftTeamsforSurfaceHub*', type: family}
+  - !appx: {name: '*Microsoft.MixedReality.Portal*', type: family}
+  - !appx: {name: '*Microsoft.MSPaint*', type: family}
+  - !appx: {name: '*Microsoft.Office.Excel*', type: family}
+  - !appx: {name: '*Microsoft.Office.OneNote*', type: family}
+  - !appx: {name: '*Microsoft.Office.PowerPoint*', type: family}
+  - !appx: {name: '*Microsoft.Office.Word*', type: family}
+  - !appx: {name: '*Microsoft.People*', type: family}
+  - !appx: {name: '*Microsoft.PowerAutomateDesktop*', type: family}
+  - !appx: {name: '*Microsoft.SkypeApp*', type: family}
+  - !appx: {name: '*Microsoft.Todos*', type: family}
+  - !appx: {name: '*Microsoft.Wallet*', type: family}
+  - !appx: {name: '*Microsoft.Whiteboard*', type: family}
+  - !appx: {name: '*Microsoft.Windows.PeopleExperienceHost*', type: family}
+  - !appx: {name: '*Microsoft.WindowsAlarms*', type: family}
+  - !appx: {name: '*Microsoft.WindowsCamera*', type: family}
+  - !appx: {name: '*microsoft.windowscommunicationsapps*', type: family}
+  - !appx: {name: '*Microsoft.WindowsFeedbackHub*', type: family}
+  - !appx: {name: '*Microsoft.WindowsSoundRecorder*', type: family}
+  - !appx: {name: '*Microsoft.XboxApp*', type: family}
+  - !appx: {name: '*Microsoft.ZuneMusic*', type: family}
+  - !appx: {name: '*Microsoft.ZuneVideo*', type: family}
+  - !appx: {name: '*MicrosoftCorporationII.MailforSurfaceHub*', type: family}
+  - !appx: {name: '*MicrosoftCorporationII.MicrosoftFamily*', type: family}
+  - !appx: {name: '*MicrosoftCorporationII.QuickAssist*', type: family}
+  - !appx: {name: '*MicrosoftOfficeHub*', type: family}
+  - !appx: {name: '*MicrosoftTeams*', type: family}
+  - !appx: {name: '*MixedReality*', type: family}
+  - !appx: {name: '*OneDrive*', type: family}
+  - !appx: {name: '*OneNote*', type: family}
+  - !appx: {name: '*PowerAutomate*', type: family}
+  - !appx: {name: '*SecureAssessmentBrowser*', type: family}
+  - !appx: {name: '*SkypeApp*', type: family}
+  - !appx: {name: '*Spotify*', type: family}
+  - !appx: {name: '*Sticky*', type: family}
+  - !appx: {name: '*Sway*', type: family}
   # - !appx: { name: "*Windows.CBSPreview*", type: family } DEBT: unsure what this does, if dependency
-  - !appx: {name: "*WindowsCamera*", type: family}
-  - !appx: {name: "*WindowsMaps*", type: family}
-  - !appx: {name: "*WindowsSoundRecorder*", type: family}
+  - !appx: {name: '*WindowsCamera*', type: family}
+  - !appx: {name: '*WindowsMaps*', type: family}
+  - !appx: {name: '*WindowsSoundRecorder*', type: family}
 
-  - !writeStatus: {status: "Deprovision APPX packages"}
+  - !writeStatus: {status: 'Deprovision APPX packages'}
   # Deprovision removed apps
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned', operation: add}
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\clipchamp.clipchamp_yxz26nhyzhsrt', operation: add}
@@ -124,7 +124,7 @@ actions:
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftCorporationII.QuickAssist_8wekyb3d8bbwe', operation: add}
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy', operation: add}
 
-  - !writeStatus: {status: "Clearing APPX Cache"}
-  - !appx: {operation: clearCache, name: "*Client.CBS*"}
-  - !appx: {operation: clearCache, name: "*StartMenuExperienceHost*"}
-  - !appx: {operation: clearCache, name: "*Windows.Search*"}
+  - !writeStatus: {status: 'Clearing APPX Cache'}
+  - !appx: {operation: clearCache, name: '*Client.CBS*'}
+  - !appx: {operation: clearCache, name: '*StartMenuExperienceHost*'}
+  - !appx: {operation: clearCache, name: '*Windows.Search*'}
