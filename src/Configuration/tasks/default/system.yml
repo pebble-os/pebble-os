@@ -4,7 +4,7 @@ title: System
 description: Removal of any Windows system-related bloat
 privilege: TrustedInstaller
 actions:
-  - !writeStatus: {status: 'Configure DISM features'}
+  - !writeStatus: {status: "Configure DISM features"}
 
   - !cmd: {command: 'DISM /Online /Enable-Feature /FeatureName:"DirectPlay" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2" /NoRestart'}
@@ -13,7 +13,7 @@ actions:
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"Printing-Foundation-InternetPrinting-Client" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"SmbDirect" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"WorkFolders-Client" /NoRestart'}
-  - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:Printing-XPSServices-Features /NoRestart'}
+  - !cmd: {command: "DISM /Online /Disable-Feature /FeatureName:Printing-XPSServices-Features /NoRestart"}
   - !cmd: {command: 'DISM /Online /Remove-Capability /CapabilityName:"App.StepsRecorder~~~~0.0.1.0" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Remove-Capability /CapabilityName:"App.Support.QuickAssist~~~~0.0.1.0" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Remove-Capability /CapabilityName:"Hello.Face.18967~~~~0.0.1.0" /NoRestart'}
@@ -25,10 +25,10 @@ actions:
   - !cmd: {command: 'DISM /Online /Remove-Capability /CapabilityName:"OpenSSH.Client~~~~0.0.1.0" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Remove-Capability /CapabilityName:"Print.Fax.Scan~~~~0.0.1.0" /NoRestart'}
 
-  - !writeStatus: {status: 'Configure System Related'}
+  - !writeStatus: {status: "Configure System Related"}
   # Rdyboost / sysmain related
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}', value: 'LowerFilters', type: REG_MULTI_SZ, data: 'fvevol\0iorate'}
-  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager', value: 'HeapDeCommitFreeBlockThreshold', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32', value: '', type: REG_SZ, data: ''}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}', value: "LowerFilters", type: REG_MULTI_SZ, data: 'fvevol\0iorate'}
+  - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager', value: "HeapDeCommitFreeBlockThreshold", type: REG_DWORD, data: "0"}
+  - !registryValue: {path: 'HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32', value: "", type: REG_SZ, data: ""}
 
-  - !run: {exeDir: true, exe: 'OTHER.cmd'}
+  - !run: {exeDir: true, exe: "OTHER.cmd"}

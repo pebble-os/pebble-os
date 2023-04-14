@@ -6,7 +6,7 @@
   "yaml.format.enable": true,
   "yaml.keyOrdering": true,
   "yaml.format.printWidth": 500,
-  "yaml.format.singleQuote": true,
+  "yaml.format.singleQuote": false,
   "yaml.schemaStore.enable": false,
   "yaml.format.bracketSpacing": false,
   "yaml.validate": false,
