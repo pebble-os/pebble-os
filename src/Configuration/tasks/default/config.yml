@@ -3,24 +3,27 @@ title: Configuration
 description: Configure Windows settings
 privilege: TrustedInstaller
 actions:
-  - !writeStatus: { status: 'Boot settings' }
+  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Configure Boot settings' }
   - !run: { exe: 'bcdedit', args: '/deletevalue useplatformclock', showOutput: false, showError: false }
   - !run: { exe: 'bcdedit', args: '/set disabledynamictick yes', showOutput: false, showError: false }
   - !run: { exe: 'bcdedit', args: '/set bootmenupolicy Legacy', showOutput: false, showError: false }
   - !run: { exe: 'bcdedit', args: '/set lastknowngood yes', showOutput: false, showError: false }
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
-  - !writeStatus: { status: 'NTFS settings' }
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Configure NTFS settings' }
   - !run: { exe: 'fsutil', args: 'behavior set disableLastAccess 3', showOutput: false }
   - !run: { exe: 'fsutil', args: 'behavior set disable8dot3 1', showOutput: false }
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
 
-  - !writeStatus: { status: 'Power Scheme' }
+  - !writeStatus: { status: 'Configure Power Scheme' }
   - !run: { exe: 'powercfg', args: '/hibernate off', showOutput: false, showError: false }
   - !run: { exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61', showOutput: false, showError: false }
   - !run: { exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 3ff9831b-6f80-4830-8178-736cd4229e7b', showOutput: false, showError: false }
@@ -40,9 +43,9 @@ actions:
   - !run: { exe: 'wevtutil', args: 'sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false', showOutput: false }
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
-  - !writeStatus: { status: 'Windows settings' }
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Configure Windows settings' }
 
   # Disable System Restore on All Drives by default, can be re-enabled.
   - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SPP\Clients' }
@@ -50,11 +53,15 @@ actions:
   - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore\cfg', value: 'DiskPercent', type: REG_DWORD, data: '0' }
 
   # Remove "3D Objects" in This PC
-  - !registryValue { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' }
-  - !registryValue { path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' }
-    # Reduce menu show delay time
-    # Automatically close any applications and continue to restart, shut down, or sign out of windows
+  - !registryKey { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' }
+  - !registryKey { path: 'HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}' }
 
+  # Remove Removable Drives in Explorer idebar
+  - !registryKey { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}' }
+  - !registryKey { path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}' }
+
+  # Reduce menu show delay time
+  # Automatically close any applications and continue to restart, shut down, or sign out of windows
   - !registryValue: { path: 'HKCU\Control Panel\Desktop', value: 'AutoEndTasks', data: '1', type: REG_SZ }
   - !registryValue: { path: 'HKCU\Control Panel\Desktop', value: 'MenuShowDelay', data: '0', type: REG_SZ }
   - !registryValue: { path: 'HKCU\Control Panel\Desktop', value: 'UserPreferencesMask', data: '9012078010000000', type: REG_BINARY }
@@ -134,8 +141,8 @@ actions:
   - !registryKey: { path: 'HKCR\svgfile' }
 
     # Do not reduce sounds while in a call
-
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Multimedia\Audio', value: 'UserDuckingPreference', data: '3', type: REG_DWORD }
+
   # Do not show hidden/disconnected devices in sound settings
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl', value: 'ShowDisconnectedDevices', data: '0', type: REG_DWORD }
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl', value: 'ShowHiddenDevices', data: '0', type: REG_DWORD }
@@ -178,7 +185,6 @@ actions:
   - !registryKey: { path: 'HKLM\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location' }
 
     # Remove 'Troubleshooting compatibility' from context menu
-
   - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked', value: '{1d27f844-3a1f-4410-85ac-14651078412d}', data: '', type: REG_SZ }
   - !registryValue: { path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked', value: '{1d27f844-3a1f-4410-85ac-14651078412d}', data: '', type: REG_SZ }
   # Remove '- Shortcut' text added onto shortcuts
@@ -197,7 +203,6 @@ actions:
   - !registryKey: { path: 'HKCR\SystemFileAssociations\.tiff\Shell\3D Edit' }
 
     # Remove 'Print' from context menu
-
   - !registryValue: { path: 'HKCR\SystemFileAssociations\image\shell\print', value: 'ProgrammaticAccessOnly', data: '', type: REG_SZ }
   - !registryValue: { path: 'HKCR\batfile\shell\print', value: 'ProgrammaticAccessOnly', data: '', type: REG_SZ }
   - !registryValue: { path: 'HKCR\cmdfile\shell\print', value: 'ProgrammaticAccessOnly', data: '', type: REG_SZ }
@@ -219,20 +224,22 @@ actions:
   - !registryValue: { path: 'HKCR\WSFFile\shell\print', value: 'ProgrammaticAccessOnly', data: '', type: REG_SZ }
   - !registryKey: { path: 'HKCR\CABFolder\Shell\RunAs' }
 
+  # Allow users to install .cab files with right click
   - !registryValue: { path: 'HKCR\CABFolder\Shell\RunAs', value: '', data: 'Install', type: REG_SZ }
   - !registryValue: { path: 'HKCR\CABFolder\Shell\RunAs', value: 'HasLUAShield', data: '', type: REG_SZ }
   - !registryValue: { path: 'HKCR\CABFolder\Shell\RunAs\Command', value: '', data: 'cmd /k DISM /online /add-package /packagepath:\"%1\"', type: REG_SZ }
   - !registryValue: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', value: 'SecurityHealth', operation: delete }
 
+  # Crash settings
   - !registryValue: { path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'AutoReboot', data: '0', type: REG_DWORD }
   - !registryValue: { path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'CrashDumpEnabled', data: '0', type: REG_DWORD }
   - !registryValue: { path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'LogEvent', data: '0', type: REG_DWORD }
   - !registryValue: { path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'DisplayParameters', data: '1', type: REG_DWORD }
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize', value: 'StartupDelayInMSec', data: '0', type: REG_DWORD }
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
-  - !writeStatus: { status: 'Scheduled Tasks' }
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Configure Scheduled Tasks' }
 
   - !run: { exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /disable', showOutput: false }
   - !run: { exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /disable', showOutput: false }
@@ -259,8 +266,8 @@ actions:
   - !scheduledTask: { path: '\Microsoft\Windows\WwanSvc\OobeDiscovery', operation: disable }
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
   - !writeStatus: { status: 'Registry settings' }
 
   - !registryValue: { path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: 'HideSCAMeetNow', type: REG_DWORD, data: '1' }
@@ -385,8 +392,8 @@ actions:
   - !registryValue: { path: 'HKU\.DEFAULT\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0' }
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
   - !writeStatus: { status: 'Group Policy' }
 
   - !cmd:
@@ -395,16 +402,15 @@ actions:
 
   - !run:
     exeDir: true
-    exe: 'LGPO.exe'
-    args: '/g C:\Temp\GPO\win10'
+    exe: 'GPO.cmd'
 
   - !cmd:
     exeDir: true
     command: 'gpupdate /Force'
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
   - !writeStatus: { status: 'Other settings' }
 
   - !run: { exe: 'net', args: 'user defaultuser0 /delete', showOutput: false, showError: false }

@@ -3,7 +3,10 @@ title: APPX
 description: Removal of any Windows APPX bloat
 privilege: TrustedInstaller
 actions:
-  - !writeStatus: { status: 'Removing APPX packages' }
+  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Remove APPX packages' }
   - !registryValue:
     path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance'
     value: 'Enabled'
@@ -70,6 +73,10 @@ actions:
   - !appx: { name: '*WindowsMaps*', type: family }
   - !appx: { name: '*WindowsSoundRecorder*', type: family }
 
+  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Deprovision APPX packages' }
   # Deprovision removed apps
   - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned', operation: add }
   - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\clipchamp.clipchamp_yxz26nhyzhsrt', operation: add }
@@ -123,6 +130,7 @@ actions:
   - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftCorporationII.QuickAssist_8wekyb3d8bbwe', operation: add }
   - !registryKey: { path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy', operation: add }
 
+  - !writeStatus: { status: 'Clearing APPX Cache' }
   - !appx: { operation: clearCache, name: '*Client.CBS*' }
   - !appx: { operation: clearCache, name: '*StartMenuExperienceHost*' }
   - !appx: { operation: clearCache, name: '*Windows.Search*' }

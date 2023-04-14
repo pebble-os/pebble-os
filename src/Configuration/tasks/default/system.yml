@@ -3,10 +3,11 @@ title: System
 description: Removal of any Windows system-related bloat
 privilege: TrustedInstaller
 actions:
+  # DEBT: Title name?
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
-  - !writeStatus: { status: 'Configuring Windows features' }
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Configure DISM features' }
 
   - !cmd: { command: 'DISM /Online /Enable-Feature /FeatureName:"DirectPlay" /NoRestart' }
   - !cmd: { command: 'DISM /Online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2" /NoRestart' }
@@ -28,9 +29,9 @@ actions:
   - !cmd: { command: 'DISM /Online /Remove-Capability /CapabilityName:"Print.Fax.Scan~~~~0.0.1.0" /NoRestart' }
 
   ########################################################################################
-  ########################################################################################
-  ########################################################################################
-  - !writeStatus: { status: 'Other Tasks' }
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Configure System Related' }
   # Rdyboost / sysmain related
   - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}', value: 'LowerFilters', type: REG_MULTI_SZ, data: 'fvevol\0iorate' }
   - !registryValue: { path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager', value: 'HeapDeCommitFreeBlockThreshold', type: REG_DWORD, data: '0' }

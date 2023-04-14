@@ -3,7 +3,10 @@ title: Files
 description: Copies pebbleOS files
 privilege: TrustedInstaller
 actions:
-  - !writeStatus: { status: "Files: Copying files" }
+  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Copy Files' }
 
   # Sets wallpaper / lock screen wallpaper
   - !cmd:
@@ -11,12 +14,12 @@ actions:
     command: 'robocopy "Web" "C:\Windows\Web" /E /PURGE /IM /IT /NP'
   - !run:
     exeDir: true
-    exe: "WALLPAPER.cmd"
+    exe: 'WALLPAPER.cmd'
 
-  ############################################
-  ############################################
-  ############################################
-  - !writeStatus: { status: "Files: Deleting files" }
+  ########################################################################################
+  #########################################################################################
+  ##########################################################################################
+  - !writeStatus: { status: 'Delete Temp files' }
 
   - !file: { path: 'C:\PerfLogs' }
   - !cmd:
