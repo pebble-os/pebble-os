@@ -21,9 +21,9 @@ actions:
   - !appx: {name: '*Microsoft.Getstarted*', type: family}
   - !appx: {name: '*Microsoft.Messaging*', type: family}
   - !appx: {name: '*Microsoft.Microsoft3DViewer*', type: family}
-  - !appx: {name: '*microsoft.microsoftedge.stable*', type: family}
-  - !appx: {name: '*Microsoft.MicrosoftEdge*', type: family}
-  - !appx: {name: '*Microsoft.MicrosoftEdgeDevToolsClient*', type: family}
+  # - !appx: {name: '*microsoft.microsoftedge.stable*', type: family}
+  # - !appx: {name: '*Microsoft.MicrosoftEdge*', type: family}
+  # - !appx: {name: '*Microsoft.MicrosoftEdgeDevToolsClient*', type: family}
   - !appx: {name: '*Microsoft.MicrosoftOfficeHub*', type: family}
   - !appx: {name: '*Microsoft.MicrosoftPowerBIForWindows*', type: family}
   - !appx: {name: '*microsoft.microsoftskydrive*', type: family}
@@ -122,7 +122,6 @@ actions:
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftCorporationII.MailforSurfaceHub_8wekyb3d8bbwe', operation: add}
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftCorporationII.MicrosoftFamily_8wekyb3d8bbwe', operation: add}
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftCorporationII.QuickAssist_8wekyb3d8bbwe', operation: add}
-  - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy', operation: add}
 
   - !writeStatus: {status: 'Clearing APPX Cache'}
   - !appx: {operation: clearCache, name: '*Client.CBS*'}

@@ -24,43 +24,31 @@ In my experience, there were often _strange_ issues that would come up related t
 
 # 🎨 Features
 
-### 🪟 **Bring your own Windows**
+#### 🪟 **Bring your own Windows**
 
-Because <img src="icon.svg" height="14" alt="pebbleOS icon"> pebbleOS is a Playbook, you are free to run it on whatever Windows 10 / 11 / LTSC / [NTLite](https://www.ntlite.com/) ISO you have installed.
+Because <img src="icon.svg" height="14" alt="pebbleOS icon"> pebbleOS is a Playbook, you are free to run it on whatever Windows 10 / 11 / LTSC / [NTLite](https://www.ntlite.com/) ISO you have installed. _I'd recommend at least a **Pro** or higher SKU, as I'm unsure if Group Policy templates can apply on Home SKUs._
 
-I'd recommend at least a **Pro** or higher SKU, as I'm unsure if Group Policy templates can apply on Home SKUs.
+#### ✂ **Remove Bloatware**
 
-### ✂ **Remove Bloatware**
+<sub>A whole host of unused APPX bloat has been removed (you can always reinstall stuff, like _Weather_ or _Paint_, from the Microsoft Store if you like those!). OneDrive is removed. Certain commonly unused Windows Features are disabled.</sub>
 
-A whole host of unused (maybe, for your use case) APPX bloat has been removed (you can always reinstall stuff, like _Weather_ or _Paint_, from the Microsoft Store if you like those!). Edge and OneDrive are removed. Certain commonly unused Windows Features are disabled.
-
-### 🔐 **Better Privacy**
+#### 🔐 **Better Privacy**
 
 From many, many registry edits and group policy settings (!) which disable passive data collection from Microsoft.
 
-### 🧱 **Better Security**
+#### 🧱 **Better Security**
 
 Certain Windows registry settings and features have been hardened. I don't want to pretend it's by any means comprehensive though - you can go [far above and beyond](https://github.com/simeononsecurity/Standalone-Windows-STIG-Script) what is done here!
 
-### ✈ **Better Performance**
+#### ✈ **Better Performance**
 
 Custom powerplan (from ReviOS), less background tasks, less drive thrashing
 
-### 🔗 **More Compatible**
+#### 🔗 **More Compatible**
 
-Unlike some ISOs or modification scripts which could break certain Windows functionality irrevocably, modifications done in pebbleOS are mostly reversible. (_some APPX apps, like Cortana, could potentially not be straightfoward to get back_)
-
-That is to say,
-
-- Windows Update should work as expected.
-- Settings pages should work as expected.
-  - (_Group Policy or Registry settings which gray out certain items would need to be removed though, to get those back_)
-- Generally, there should hopefully be much less extremely niche, peculiar issues you'll come across which send you on a 3 hour Google triage only to find out (or rather, make you guess) that it's related to some component you removed from the OS that is literally impossible or unfeasable to get back.
-- Should reduce or eliminate the need to do any entire OS re-installs, should pebbleOS update
+Unlike some ISOs or modification scripts which could break certain Windows functionality irrevocably, modifications done in pebbleOS are mostly reversible. (_some APPX apps, like Cortana, could potentially not be straightfoward to get back_). **There is no component removal/deletion.**
 
 # 🛠️ Installation
-
-Before installing, you **ensure you have a browser installer** handy! After the Playbook is finished, Edge is removed. If it was your only browser, you won't be able to get online without an installer! (If you prefer Edge, you can always [re-install that](https://www.microsoft.com/en-us/edge/business/download))
 
 Installation is unlike previous methods which often involved creating a bootable USB with an ISO file. Instead, we run Ameliorated's tool on an active Windows installation.
 
@@ -74,10 +62,11 @@ Import the <img src="icon.svg" height="14" alt="pebbleOS icon"> pebbleOS Playboo
 
 # 💝 Credits
 
-|                                [🎗️ Ameliroated](https://ameliorated.io/)                                |                                          [🎗️ NTLite](https://ntlite.com/)                                           |                     [🎗️ ReviOS](https://revi.cc/)                     |
-| :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------: |
-|                                  **[🎗️ Atlas](https://atlasos.net/)**                                   | **[🎗️ simeononsecurity (Windows STIG Script)](https://github.com/simeononsecurity/Standalone-Windows-STIG-Script)** | **[🎗️ Windows Spy Blocker](https://crazymax.dev/WindowsSpyBlocker/)** |
-| **[🎗️ MS Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319)** |                          **[🎗️ My Digital Life Forums](https://forums.mydigitallife.net)**                          |
+###
+
+[🎗️ Ameliroated](https://ameliorated.io/) [🎗️ NTLite](https://ntlite.com/) [🎗️ ReviOS](https://revi.cc/)
+[🎗️ Atlas](https://atlasos.net/) [🎗️ simeononsecurity (Windows STIG Script)](https://github.com/simeononsecurity/Standalone-Windows-STIG-Script) [🎗️ Windows Spy Blocker](https://crazymax.dev/WindowsSpyBlocker/)
+[🎗️ MS Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319) [🎗️ My Digital Life Forums](https://forums.mydigitallife.net) TODO: Clean up this section
 
 # ⚠ Notes
 
