@@ -4,33 +4,33 @@ description: Configure Windows settings
 privilege: TrustedInstaller
 actions:
   - !writeStatus: {status: 'Configuring boot settings'}
-  - !run: {exe: 'bcdedit', args: '/deletevalue useplatformclock', showOutput: false, showError: false}
-  - !run: {exe: 'bcdedit', args: '/set disabledynamictick yes', showOutput: false, showError: false}
-  - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy', showOutput: false, showError: false}
-  - !run: {exe: 'bcdedit', args: '/set lastknowngood yes', showOutput: false, showError: false}
+  - !run: {exe: 'bcdedit', args: '/deletevalue useplatformclock'}
+  - !run: {exe: 'bcdedit', args: '/set disabledynamictick yes'}
+  - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}
+  - !run: {exe: 'bcdedit', args: '/set lastknowngood yes'}
 
   - !writeStatus: {status: 'Configure NTFS settings'}
-  - !run: {exe: 'fsutil', args: 'behavior set disableLastAccess 3', showOutput: false}
-  - !run: {exe: 'fsutil', args: 'behavior set disable8dot3 1', showOutput: false}
+  - !run: {exe: 'fsutil', args: 'behavior set disableLastAccess 3'}
+  - !run: {exe: 'fsutil', args: 'behavior set disable8dot3 1'}
 
   - !writeStatus: {status: 'Configure Power Scheme'}
-  - !run: {exe: 'powercfg', args: '/hibernate off', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 3ff9831b-6f80-4830-8178-736cd4229e7b', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-changename 3ff9831b-6f80-4830-8178-736cd4229e7b "Ultra Performance" "Windows''s Ultimate Performance with additional changes."', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-s 3ff9831b-6f80-4830-8178-736cd4229e7b', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFINCPOL 2', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFDECPOL 1', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFINCTHRESHOLD 10', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8', showOutput: false, showError: false}
-  - !run: {exe: 'powercfg', args: '/setactive scheme_current', showOutput: false, showError: false}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable', showOutput: false}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /disable', showOutput: false}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /disable', showOutput: false}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\WindowsUpdate\Scheduled Start" /disable', showOutput: false}
-  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-SleepStudy/Diagnostic /e:false', showOutput: false}
-  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false', showOutput: false}
-  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false', showOutput: false}
+  - !run: {exe: 'powercfg', args: '/hibernate off'}
+  - !run: {exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61'}
+  - !run: {exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 3ff9831b-6f80-4830-8178-736cd4229e7b'}
+  - !run: {exe: 'powercfg', args: '-changename 3ff9831b-6f80-4830-8178-736cd4229e7b "Ultra Performance" "Windows''s Ultimate Performance with additional changes."'}
+  - !run: {exe: 'powercfg', args: '-s 3ff9831b-6f80-4830-8178-736cd4229e7b'}
+  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFINCPOL 2'}
+  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFDECPOL 1'}
+  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFINCTHRESHOLD 10'}
+  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8'}
+  - !run: {exe: 'powercfg', args: '/setactive scheme_current'}
+  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable'}
+  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /disable'}
+  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /disable'}
+  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\WindowsUpdate\Scheduled Start" /disable'}
+  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-SleepStudy/Diagnostic /e:false'}
+  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false'}
+  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false'}
 
   - !writeStatus: {status: 'Configure Windows settings'}
 
@@ -362,11 +362,9 @@ actions:
 
   - !writeStatus: {status: 'Other settings'}
 
-  - !run: {exe: 'net', args: 'user defaultuser0 /delete', showOutput: false, showError: false}
-  - !run: {exe: 'lodctr', args: '/r', showOutput: false, showError: false}
+  - !run: {exe: 'net', args: 'user defaultuser0 /delete'}
+  - !run: {exe: 'lodctr', args: '/r'}
   - !run: {exe: 'winmgmt', args: '/resyncperf'}
-    # Mitigate against HiveNightmare/SeriousSam
-  - !run: {exe: 'icacls', args: '"C:\Windows\system32\config\*.*" /inheritance:e', showOutput: false}
   - !powerShell: {command: 'Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient, ms_server, ms_lldp, ms_lltdio, ms_rspndr'}
   - !run: {exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "DEVICES.ps1"', exeDir: true, wait: true}
   - !service: {name: 'SysMain', operation: change, startup: 4}

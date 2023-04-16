@@ -4,7 +4,7 @@ description: Configure privacy-related seettings
 privilege: TrustedInstaller
 actions:
   - !writeStatus: {status: 'Configure Privacy settings'}
-  - !run: {exe: 'PowerShell', args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-WindowsErrorReporting"', showOutput: false, showError: false}
+  - !run: {exe: 'PowerShell', args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-WindowsErrorReporting"'}
   - !run: {exe: 'setx', args: 'DOTNET_CLI_TELEMETRY_OPTOUT 1'}
   - !run: {exe: 'setx', args: 'POWERSHELL_TELEMETRY_OPTOUT 1'}
 
@@ -13,7 +13,7 @@ actions:
   - !run: {exe: 'w32tm', args: '/config /update'}
   - !run: {exe: 'w32tm', args: '/resync'}
 
-  - !run: {exe: 'PowerShell', args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-WindowsErrorReporting"', showOutput: false, showError: false}
+  - !run: {exe: 'PowerShell', args: '-NonInteractive -NoLogo -NoProfile -Command "Disable-WindowsErrorReporting"'}
 
   - !registryKey: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\Subscriptions'}
   - !registryKey: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps'}
