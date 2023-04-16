@@ -3,12 +3,6 @@ title: Files
 description: Copies pebbleOS files
 privilege: TrustedInstaller
 actions:
-  # - !writeStatus: {status: 'Copy Files'}
-
-  # # Sets wallpaper / lock screen wallpaper
-  # - !cmd: {exeDir: true, command: 'robocopy "Web" "C:\Windows\Web" /E /PURGE /IM /IT /NP'}
-  # - !run: {exeDir: true, exe: 'WALLPAPER.cmd'}
-
   - !writeStatus: {status: 'Delete Temp files'}
 
   - !file: {path: 'C:\PerfLogs'}

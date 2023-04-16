@@ -1,7 +1,5 @@
 @echo off
-set version=23.04
-for /f "tokens=2 delims==" %%i in ('wmic os get BuildNumber /value ^| find "="') do set "build=%%i"
-if %build% gtr 19045 ( set "w11=true" )
+setlocal EnableDelayedExpansion
 
 ::WebThreatDefSvc
 for /f %%i in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /s /k "webthreatdefusersvc" /f 2^>nul ^| find /i "webthreatdefusersvc" ') do (
@@ -30,23 +28,12 @@ for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:v
 set /a "mem=%memTemp% + 1024000"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control" /v "SvcHostSplitThresholdInKB" /t REG_DWORD /d "%mem%" /f >NUL
 
-for /f "usebackq tokens=2 delims=\" %%a in (`reg query "HKEY_USERS" ^| findstr /r /x /c:"HKEY_USERS\\S-.*" /c:"HKEY_USERS\\AME_UserHive_[^_]*"`) do (
-  REM If the "Volatile Environment" key exists, that means it is a proper user. Built in accounts/SIDs do not have this key.
-  reg query "HKEY_USERS\%%a" | findstr /c:"Volatile Environment" /c:"AME_UserHive_" > nul 2>&1
-    if not errorlevel 1 (
-      if %mem% lss 9000000 (
-        reg add "HKU\%%a\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "0" /f >NUL
-        reg add "HKU\%%a\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d "0" /f >NUL 2>nul
-      )
-    )
-	)
-
-
-:: Disable DMA remapping
-:: https://docs.microsoft.com/en-us/windows-hardware/drivers/pci/enabling-dma-remapping-for-device-drivers
-for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
-    reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
-)
+@REM TODO: May cause issues?
+@REM :: Disable DMA remapping
+@REM :: https://docs.microsoft.com/en-us/windows-hardware/drivers/pci/enabling-dma-remapping-for-device-drivers
+@REM for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
+@REM     reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
+@REM )
 
 :: Disable NetBios over tcp/ip
 :: Works only when services are enabled
