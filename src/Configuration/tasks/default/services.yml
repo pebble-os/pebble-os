@@ -3,16 +3,14 @@ title: Services
 description: Configure Services
 privilege: TrustedInstaller
 actions:
+  # TODO: Human readable names
   - !writeStatus: {status: 'Configure Services'}
 
   - !taskKill: {name: 'SecurityHealthService'}
   - !taskKill: {name: 'SecurityHealthSystray'}
 
-  # DEBT: names!
-
   - !service: {name: 'AarSvc', operation: change, startup: 4}
   - !service: {name: 'AJRouter', operation: change, startup: 4}
-  # - !service: { name: "AppIDSvc", operation: change, startup: 4 } # DEBT: may be needed?
   - !service: {name: 'AssignedAccessManagerSvc', operation: change, startup: 4}
   - !service: {name: 'bam', operation: change, startup: 4}
   - !service: {name: 'Beep', operation: change, startup: 4}
@@ -25,15 +23,15 @@ actions:
   - !service: {name: 'DisplayEnhancementService', operation: change, startup: 4}
   - !service: {name: 'DPS', operation: change, startup: 4}
   - !service: {name: 'embeddedmode', operation: change, startup: 4}
-  - !service: {name: 'fhsvc', operation: change, startup: 4}
-  # - !service: { name: "GpuEnergyDrv", operation: change, startup: 4 } # DEBT: sus?
   - !service: {name: 'fdPHost', operation: change, startup: 4}
   - !service: {name: 'FDResPub', operation: change, startup: 4}
+  - !service: {name: 'fhsvc', operation: change, startup: 4}
   - !service: {name: 'GraphicsPerfSvc', operation: change, startup: 4}
   - !service: {name: 'LanmanServer', operation: change, startup: 4}
   - !service: {name: 'lfsvc', operation: change, startup: 3} # Note: Nice to have for programs like Auto Dark
   - !service: {name: 'MapsBroker', operation: change, startup: 4}
   - !service: {name: 'MessagingService', operation: change, startup: 4}
+  - !service: {name: 'MsSecCore', operation: change, startup: 4}
   - !service: {name: 'MsSecFlt', operation: change, startup: 4}
   - !service: {name: 'Ndu', operation: change, startup: 4}
   - !service: {name: 'NetBT', operation: change, startup: 4}
@@ -49,18 +47,16 @@ actions:
   - !service: {name: 'SecurityHealthService', operation: change, startup: 4}
   - !service: {name: 'SEMgrSvc', operation: change, startup: 4}
   - !service: {name: 'Sense', operation: change, startup: 4}
-  # - !service: { name: "sppsvc", operation: change, startup: 4 } # DEBT: sus?
   - !service: {name: 'SgrmAgent', operation: change, startup: 4}
   - !service: {name: 'SgrmBroker', operation: change, startup: 4}
   - !service: {name: 'SharedAccess', operation: change, startup: 4}
   - !service: {name: 'ShellHWDetection', operation: change, startup: 4}
-  - !service: {name: 'SstpSvc', operation: change, startup: 4}
   - !service: {name: 'SmsRouter', operation: change, startup: 4}
   - !service: {name: 'Spooler', operation: change, startup: 4}
+  - !service: {name: 'SstpSvc', operation: change, startup: 4}
   - !service: {name: 'SysMain', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
   - !service: {name: 'Themes', operation: change, startup: 4}
-  # - !service: { name: "UevAgentService", operation: change, startup: 4 } # DEBT: may be needed?
   - !service: {name: 'VSS', operation: change, startup: 4}
   - !service: {name: 'wbengine', operation: change, startup: 4}
   - !service: {name: 'WdBoot', operation: change, startup: 4}
@@ -79,6 +75,10 @@ actions:
   - !service: {name: 'wlpasvc', operation: change, startup: 4}
   - !service: {name: 'wscsvc', operation: change, startup: 4}
   - !service: {name: 'WSearch', operation: change, startup: 4}
+  # - !service: { name: "AppIDSvc", operation: change, startup: 4 } # DEBT: may be needed?
+  # - !service: { name: "GpuEnergyDrv", operation: change, startup: 4 } # DEBT: sus?
+  # - !service: { name: "sppsvc", operation: change, startup: 4 } # DEBT: sus?
+  # - !service: { name: "UevAgentService", operation: change, startup: 4 } # DEBT: may be needed?
 
   - !writeStatus: {status: 'Configure Driver Services'}
   - !service: {name: '3ware', operation: change, startup: 4}
@@ -92,6 +92,7 @@ actions:
   - !service: {name: 'buttonconverter', operation: change, startup: 4}
   - !service: {name: 'CAD', operation: change, startup: 4}
   - !service: {name: 'cdfs', operation: change, startup: 4}
+  - !service: {name: 'cdrom', operation: change, startup: 4}
   - !service: {name: 'CimFS', operation: change, startup: 4}
   - !service: {name: 'circlass', operation: change, startup: 4}
   - !service: {name: 'cnghwassist', operation: change, startup: 4}
@@ -101,7 +102,6 @@ actions:
   - !service: {name: 'fdc', operation: change, startup: 4}
   - !service: {name: 'flpydisk', operation: change, startup: 4}
   - !service: {name: 'gencounter', operation: change, startup: 4}
-  - !service: {name: 'KSecPkg', operation: change, startup: 4}
   - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
   - !service: {name: 'mrxsmb', operation: change, startup: 4}
   - !service: {name: 'mrxsmb20', operation: change, startup: 4}
@@ -114,10 +114,9 @@ actions:
   - !service: {name: 'SiSRaid2', operation: change, startup: 4}
   - !service: {name: 'SiSRaid4', operation: change, startup: 4}
   - !service: {name: 'spaceparser', operation: change, startup: 4}
+  - !service: {name: 'spaceport', operation: change, startup: 4}
   - !service: {name: 'srv2', operation: change, startup: 4}
   - !service: {name: 'storflt', operation: change, startup: 4}
-  # - !service: { name: "Tcpip6", operation: change, startup: 3 }
-  # - !service: { name: "tcpipreg", operation: change, startup: 4 }
   - !service: {name: 'Telemetry', operation: change, startup: 4}
   - !service: {name: 'udfs', operation: change, startup: 4}
   - !service: {name: 'umbus', operation: change, startup: 4}
@@ -127,5 +126,9 @@ actions:
   - !service: {name: 'vpci', operation: change, startup: 4}
   - !service: {name: 'vsmraid', operation: change, startup: 4}
   - !service: {name: 'VSTXRAID', operation: change, startup: 4}
-  # - !service: { name: "wcnfs", operation: change, startup: 4 }
+  - !service: {name: 'wanarp', operation: change, startup: 4}
   - !service: {name: 'WindowsTrustedRTProxy', operation: change, startup: 4}
+  # - !service: { name: "Tcpip6", operation: change, startup: 3 }
+  # - !service: { name: "tcpipreg", operation: change, startup: 4 }
+  # - !service: { name: "wcnfs", operation: change, startup: 4 }
+  # - !service: {name: 'KSecPkg', operation: change, startup: 4} # Debt: Maybe debt? sus?
