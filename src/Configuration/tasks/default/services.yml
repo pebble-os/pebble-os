@@ -56,8 +56,10 @@ actions:
   - !service: {name: 'SstpSvc', operation: change, startup: 4}
   - !service: {name: 'SysMain', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
-  - !service: {name: 'Themes', operation: change, startup: 4}
-  - !service: {name: 'VSS', operation: change, startup: 4}
+  - !service: {name: 'Themes', operation: change, startup: 4}\
+  # Disabled logs around this, breaks Windows Restore points
+  # IMO I don't use - but others may.
+  # - !service: {name: 'VSS', operation: change, startup: 4}
   - !service: {name: 'wbengine', operation: change, startup: 4}
   - !service: {name: 'WdBoot', operation: change, startup: 4}
   - !service: {name: 'WdBoot', operation: change, startup: 4}
@@ -104,7 +106,8 @@ actions:
   - !service: {name: 'gencounter', operation: change, startup: 4}
   - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
   - !service: {name: 'mrxsmb', operation: change, startup: 4}
-  - !service: {name: 'mrxsmb20', operation: change, startup: 4}
+  # Breaks lanmanworkstation, which is used by AMD Ryzen Master.
+  # - !service: {name: 'mrxsmb20', operation: change, startup: 4}
   - !service: {name: 'NdisVirtualBus', operation: change, startup: 4}
   - !service: {name: 'nvraid', operation: change, startup: 4}
   - !service: {name: 'passthruparser', operation: change, startup: 4}
