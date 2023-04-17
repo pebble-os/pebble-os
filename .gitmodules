@@ -7,3 +7,6 @@
 [submodule "sources/windows-stig"]
 	path = sources/windows-stig
 	url = https://github.com/simeononsecurity/Standalone-Windows-STIG-Script.git
+[submodule "sources/atlantsecurity"]
+	path = sources/atlantsecurity
+	url = https://github.com/atlantsecurity/windows-hardening-scripts

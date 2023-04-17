@@ -9,7 +9,7 @@ actions:
   - !registryKey: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', operation: add}
   - !registryValue: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', value: 'EnableMulticast', type: REG_DWORD, data: '0'}
 
-  # Disable WDigest
+  # Disable WDigest - storying password in plaintext in memory
   - !registryValue: {path: 'HKLM:\System\CurrentControlSet\Control\SecurityProviders\Wdigest', value: 'UseLogonCredential', type: REG_DWORD, data: '0'}
 
   # Disable TCP Timestamps
@@ -169,6 +169,87 @@ actions:
   - !registryKey: {path: 'HKCU\SOFTWARE\Microsoft\Office\Common\Security', operation: add}
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Office\Common\Security', value: 'DisableAllActiveX', type: REG_DWORD, data: '1'}
 
+  # atlantsecurity: :: Enforce the Administrator role for adding printer drivers. This is a frequent exploit attack vector.
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Print\Providers\LanMan Print Services\Servers', value: 'AddPrinterDrivers', type: REG_DWORD, data: '1'}
+
+  # atlantsecurity: :: https://www.stigviewer.com/stig/windows_7/2012-07-02/finding/V-1171
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon', value: 'AllocateDASD', type: REG_DWORD, data: '0'}
+
+  #atlantsecurity  :: Prevent Kerberos from using DES or RC4 (other keys disabled elsewheres)
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters', value: 'SupportedEncryptionTypes ', type: REG_DWORD, data: '2147483640'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient', value: 'EnableMulticast', type: REG_DWORD, data: '0'}
+
+  # atlantsecurity: :: This breaks / disables RDP.
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0', value: 'RestrictSendingNTLMTraffic', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0', value: 'NTLMMinServerSec', type: REG_DWORD, data: '537395200'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0', value: 'NTLMMinClientSec', type: REG_DWORD, data: '537395200'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\LSA\MSV1_0', value: 'allownullsessionfallback', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters', value: 'SMB1', type: REG_DWORD, data: '0'}
+
+  # atlantsecurity: 5 below could impact share access, remove if needed.
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Control\Lsa', value: 'LMCompatibilityLevel', type: REG_DWORD, data: '5'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RestrictAnonymousSAM', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RestrictAnonymous', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'EveryoneIncludesAnonymous', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RestrictRemoteSAM', type: REG_SZ, data: 'O:BAG:BAD:(A;;RC;;;BA)'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'UseMachineId', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'LimitBlankPasswordUse', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Wpad', value: 'WpadOverride', type: REG_DWORD, data: '1'}
+
+  # atlantsecurity: Affects Windows Remoting (WinRM) deployments
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System', value: 'LocalAccountTokenFilterPolicy', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System', value: 'FilterAdministratorToken', type: REG_DWORD, data: '1'}
+
+  # atlantsecurity: Always re-process Group Policy even if no changes
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}', value: 'NoGPOListChanges', type: REG_DWORD, data: '0'}
+
+  # atlantsecuriy: Prevent unauthenticated RPC connections
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Rpc', value: 'RestrictRemoteClients', type: REG_DWORD, data: '1'}
+
+  # atlantsecuriy: Enable SMB/LDAP Signing
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\LanmanWorkStation\Parameters', value: 'RequireSecuritySignature', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\LanmanWorkStation\Parameters', value: 'EnableSecuritySignature', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters', value: 'RequireSecuritySignature', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters', value: 'EnableSecuritySignature', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\NTDS\Parameters', value: 'LDAPServerIntegrity', type: REG_DWORD, data: '2'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\ldap', value: 'LDAPClientIntegrity', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\Netlogon\Parameters', value: 'RequireSignOrSeal', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\Netlogon\Parameters', value: 'SealSecureChannel', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Services\Netlogon\Parameters', value: 'SignSecureChannel', type: REG_DWORD, data: '1'}
+
+  #atlantsecuriy:: Prevent unencrypted passwords being sent to third-party SMB servers
+  #atlantsecuriy:: Prevent guest logons to SMB servers
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters', value: 'EnablePlainTextPassword', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation', value: 'AllowInsecureGuestAuth', type: REG_DWORD, data: '0'}
+
+  # atlantsecuriy:: Prevent (remote) DLL Hijacking
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'CWDIllegalInDllSearch', type: REG_DWORD, data: '0x2'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'SafeDLLSearchMode', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '1'}
+  # atlantsecuriy:::: Require encrypted RPC connections to Remote Desktop
+  # atlantsecuriy:::: Prevent sharing of local drives via Remote Desktop Session Hosts
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services', value: 'fEncryptRPCTraffic', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services', value: 'fDisableCdm', type: REG_DWORD, data: '1'}
+
+  # atlantsecuriy:::: Stop NetBIOS over TCP/IP
+  - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2'}
+  - !run: {exe: 'wmic ', args: '/interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2'}
+
+  # atlantsecuriy:::: Disable NTLMv1
+  - !powershell {command: Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\mrxsmb10', value: 'Start', type: REG_DWORD, data: '4'}
+
+  # atlantsecuriy:: Harden lsass to help protect against credential dumping (Mimikatz)
+  # atlantsecuriy:: Configures lsass.exe as a protected process and disables wdigest
+  # atlantsecuriy:: Enables delegation of non-exported credentials which enables support for Restricted Admin Mode or Remote Credential Guard
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\LSASS.exe', value: 'AuditLevel', type: REG_DWORD, data: '00000008'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RunAsPPL', type: REG_DWORD, data: '00000001'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'DisableRestrictedAdmin', type: REG_DWORD, data: '00000000'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'DisableRestrictedAdminOutboundCreds', type: REG_DWORD, data: '00000001'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest', value: 'UseLogonCredential', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest', value: 'Negotiate', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation', value: 'AllowProtectedCreds', type: REG_DWORD, data: '1'}
+
   #########################################################
   ####################################################### Below are security features that are disabled that technically *reduce*
   ####################################################### security. These are disabled as a tradeoff for privacy or performance.
@@ -229,3 +310,22 @@ actions:
   # (Disable!) Disables Publisher could not be verified, anti virus scanning
   - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: 'DefaultFileTypeRisk', type: REG_DWORD, data: '1808'}
   - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: 'ScanWithAntiVirus', type: REG_DWORD, data: '1'}
+
+  # (Disable!) Items from melody's tweaks.
+  # Need to test if affects gamesd any
+  # or if worth to disbale these.
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'EnableCfg', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'MoveImages', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettings', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverride', type: REG_DWORD, data: '3'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverrideMask', type: REG_DWORD, data: '3'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'ScanWithAntiVirus', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'DisableExceptionChainValidation', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'KernelSEHOPEnabled', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\FVE', value: 'DisableExternalDMAUnderLock', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'EnableVirtualizationBasedSecurity', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'HVCIMATRequired', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'DEPOff', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: 'NoDataExecutionPrevention', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: 'DisableHHDEP', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '0'}

@@ -66,7 +66,7 @@ Import the <img src="icon.svg" height="14" alt="pebbleOS icon"> pebbleOS Playboo
 
 [🎗️ Ameliroated](https://ameliorated.io/) [🎗️ NTLite](https://ntlite.com/) [🎗️ ReviOS](https://revi.cc/)
 [🎗️ Atlas](https://atlasos.net/) [🎗️ simeononsecurity (Windows STIG Script)](https://github.com/simeononsecurity/Standalone-Windows-STIG-Script) [🎗️ Windows Spy Blocker](https://crazymax.dev/WindowsSpyBlocker/)
-[🎗️ MS Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319) [🎗️ My Digital Life Forums](https://forums.mydigitallife.net) TODO: Clean up this section
+[🎗️ MS Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319) [🎗️ My Digital Life Forums](https://forums.mydigitallife.net) [🎗️ atlantsecurity](https://github.com/atlantsecurity/windows-hardening-scripts) [🎗️ Meloy's Tweaks](https://sites.google.com/view/melodystweaks/home) TODO: Clean up this section
 
 # ⚠ Notes
 
