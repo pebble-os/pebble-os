@@ -97,7 +97,7 @@ actions:
   - !service: {name: 'cdrom', operation: change, startup: 4}
   - !service: {name: 'CimFS', operation: change, startup: 4}
   - !service: {name: 'circlass', operation: change, startup: 4}
-  - !service: {name: 'cnghwassist', operation: change, startup: 4}
+  # - !service: {name: 'cnghwassist', operation: change, startup: 4}
   # TODO: Seems important to have?
   # - !service: {name: 'CompositeBus', operation: change, startup: 4}
   - !service: {name: 'Dfsc', operation: change, startup: 4}
@@ -113,7 +113,7 @@ actions:
   - !service: {name: 'nvraid', operation: change, startup: 4}
   - !service: {name: 'passthruparser', operation: change, startup: 4}
   - !service: {name: 'pvhdparser', operation: change, startup: 4}
-  - !service: {name: 'RFCOMM', operation: change, startup: 4}
+  # - !service: {name: 'RFCOMM', operation: change, startup: 4}
   - !service: {name: 'sfloppy', operation: change, startup: 4}
   - !service: {name: 'SiSRaid2', operation: change, startup: 4}
   - !service: {name: 'SiSRaid4', operation: change, startup: 4}
