@@ -62,7 +62,7 @@ actions:
   # Automatically close any applications and continue to restart, shut down, or sign out of windows
   - !registryValue: {path: 'HKCU\Control Panel\Desktop', value: 'AutoEndTasks', data: '1', type: REG_SZ}
   - !registryValue: {path: 'HKCU\Control Panel\Desktop', value: 'MenuShowDelay', data: '0', type: REG_SZ}
-  - !registryValue: {path: 'HKCU\Control Panel\Desktop', value: 'UserPreferencesMask', data: '9012078010000000', type: REG_BINARY}
+  - !registryValue: {path: 'HKCU\Control Panel\Desktop', value: 'UserPreferencesMask', data: '9812078012000000', type: REG_BINARY}
   - !registryValue: {path: 'HKCU\Control Panel\Desktop', value: 'JPEGImportQuality', data: '100', type: REG_DWORD}
   # Do not allow themes to changes desktop iocns and mouse pointers
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes', value: 'ThemeChangesMousePointers', data: '0', type: REG_DWORD}
