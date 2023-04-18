@@ -12,7 +12,7 @@ actions:
   - !run: {exe: 'bcdedit', args: '/set firstmegabytepolicy UseAll'}
   - !run: {exe: 'bcdedit', args: '/set avoidlowmemory 0x8000000'}
   - !run: {exe: 'bcdedit', args: '/set nolowmem Yes'}
-  - !run: {exe: 'bcdedit', args: '/set disableelamdrivers Yes'}
+  # - !run: {exe: 'bcdedit', args: '/set disableelamdrivers Yes'}
 
   - !writeStatus: {status: 'Configure NTFS settings'}
   - !run: {exe: 'fsutil', args: 'behavior set disableLastAccess 3'}

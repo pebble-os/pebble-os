@@ -314,18 +314,18 @@ actions:
   # (Disable!) Items from melody's tweaks.
   # Need to test if affects gamesd any
   # or if worth to disbale these.
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'EnableCfg', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'MoveImages', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'EnableCfg', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'MoveImages', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettings', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverride', type: REG_DWORD, data: '3'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverrideMask', type: REG_DWORD, data: '3'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'ScanWithAntiVirus', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'DisableExceptionChainValidation', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'KernelSEHOPEnabled', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\FVE', value: 'DisableExternalDMAUnderLock', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'DisableExceptionChainValidation', type: REG_DWORD, data: '1'}
+  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'KernelSEHOPEnabled', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\FVE', value: 'DisableExternalDMAUnderLock', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'EnableVirtualizationBasedSecurity', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'HVCIMATRequired', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'DEPOff', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: 'NoDataExecutionPrevention', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: 'DisableHHDEP', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'HVCIMATRequired', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard', value: 'DEPOff', type: REG_DWORD, data: '1'}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: 'NoDataExecutionPrevention', type: REG_DWORD, data: '1'}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: 'DisableHHDEP', type: REG_DWORD, data: '1'}
+  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '0'}
