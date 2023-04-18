@@ -6,11 +6,11 @@ actions:
   - !writeStatus: {status: 'Configure Security Settings'}
 
   # Disable LLMNR
-  - !registryKey: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', operation: add}
-  - !registryValue: {path: 'HKLM:\Software\policies\Microsoft\Windows NT\DNSClient', value: 'EnableMulticast', type: REG_DWORD, data: '0'}
+  - !registryKey: {path: 'HKLM\Software\policies\Microsoft\Windows NT\DNSClient', operation: add}
+  - !registryValue: {path: 'HKLM\Software\policies\Microsoft\Windows NT\DNSClient', value: 'EnableMulticast', type: REG_DWORD, data: '0'}
 
   # Disable WDigest - storying password in plaintext in memory
-  - !registryValue: {path: 'HKLM:\System\CurrentControlSet\Control\SecurityProviders\Wdigest', value: 'UseLogonCredential', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\System\CurrentControlSet\Control\SecurityProviders\Wdigest', value: 'UseLogonCredential', type: REG_DWORD, data: '0'}
 
   # Disable TCP Timestamps
   - !cmd: {command: 'netsh int tcp set global timestamps=disabled'}
@@ -223,7 +223,7 @@ actions:
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation', value: 'AllowInsecureGuestAuth', type: REG_DWORD, data: '0'}
 
   # atlantsecuriy:: Prevent (remote) DLL Hijacking
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'CWDIllegalInDllSearch', type: REG_DWORD, data: '0x2'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'CWDIllegalInDllSearch', type: REG_DWORD, data: '2'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'SafeDLLSearchMode', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '1'}
   # atlantsecuriy:::: Require encrypted RPC connections to Remote Desktop
@@ -233,7 +233,7 @@ actions:
 
   # atlantsecuriy:::: Stop NetBIOS over TCP/IP
   - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2'}
-  - !run: {exe: 'wmic ', args: '/interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2'}
+  - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2'}
 
   # atlantsecuriy:::: Disable NTLMv1
   - !powerShell: {command: 'Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol'}
