@@ -98,13 +98,14 @@ actions:
   - !service: {name: 'CimFS', operation: change, startup: 4}
   - !service: {name: 'circlass', operation: change, startup: 4}
   - !service: {name: 'cnghwassist', operation: change, startup: 4}
-  - !service: {name: 'CompositeBus', operation: change, startup: 4}
+  # TODO: Seems important to have?
+  # - !service: {name: 'CompositeBus', operation: change, startup: 4}
   - !service: {name: 'Dfsc', operation: change, startup: 4}
   - !service: {name: 'ErrDev', operation: change, startup: 4}
   - !service: {name: 'fdc', operation: change, startup: 4}
   - !service: {name: 'flpydisk', operation: change, startup: 4}
   - !service: {name: 'gencounter', operation: change, startup: 4}
-  - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
+  # - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
   - !service: {name: 'mrxsmb', operation: change, startup: 4}
   # Breaks lanmanworkstation, which is used by AMD Ryzen Master.
   # - !service: {name: 'mrxsmb20', operation: change, startup: 4}
@@ -122,11 +123,12 @@ actions:
   - !service: {name: 'storflt', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
   - !service: {name: 'udfs', operation: change, startup: 4}
-  - !service: {name: 'umbus', operation: change, startup: 4}
-  - !service: {name: 'VerifierExt', operation: change, startup: 4}
+  # TODO: Seems important to have?
+  # - !service: {name: 'umbus', operation: change, startup: 4}
+  # - !service: {name: 'VerifierExt', operation: change, startup: 4}
   - !service: {name: 'vhdparser', operation: change, startup: 4}
-  - !service: {name: 'Vid', operation: change, startup: 4}
-  - !service: {name: 'vpci', operation: change, startup: 4}
+  # - !service: {name: 'Vid', operation: change, startup: 4}
+  # - !service: {name: 'vpci', operation: change, startup: 4}
   - !service: {name: 'vsmraid', operation: change, startup: 4}
   - !service: {name: 'VSTXRAID', operation: change, startup: 4}
   - !service: {name: 'wanarp', operation: change, startup: 4}
