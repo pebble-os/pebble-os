@@ -236,7 +236,7 @@ actions:
   - !run: {exe: 'wmic ', args: '/interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2'}
 
   # atlantsecuriy:::: Disable NTLMv1
-  - !powershell {command: Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol}
+  - !powerShell: {command: 'Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\mrxsmb10', value: 'Start', type: REG_DWORD, data: '4'}
 
   # atlantsecuriy:: Harden lsass to help protect against credential dumping (Mimikatz)
