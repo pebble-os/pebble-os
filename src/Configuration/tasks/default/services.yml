@@ -56,7 +56,7 @@ actions:
   - !service: {name: 'SstpSvc', operation: change, startup: 4}
   - !service: {name: 'SysMain', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
-  - !service: {name: 'Themes', operation: change, startup: 4}\
+  - !service: {name: 'Themes', operation: change, startup: 4}
   # Disabled logs around this, breaks Windows Restore points
   # IMO I don't use - but others may.
   # - !service: {name: 'VSS', operation: change, startup: 4}
