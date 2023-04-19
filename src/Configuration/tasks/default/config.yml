@@ -9,9 +9,11 @@ actions:
   - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}
   - !run: {exe: 'bcdedit', args: '/set lastknowngood yes'}
   # Some Melody's settings
-  - !run: {exe: 'bcdedit', args: '/set firstmegabytepolicy UseAll'}
-  - !run: {exe: 'bcdedit', args: '/set avoidlowmemory 0x8000000'}
-  - !run: {exe: 'bcdedit', args: '/set nolowmem Yes'}
+  # NOTE: One of these three below bcdedit breaks Windows 10 loading, for me at least.
+  # - !run: {exe: 'bcdedit', args: '/set firstmegabytepolicy UseAll'}
+  # - !run: {exe: 'bcdedit', args: '/set avoidlowmemory 0x8000000'}
+  # - !run: {exe: 'bcdedit', args: '/set nolowmem Yes'}
+
   # - !run: {exe: 'bcdedit', args: '/set disableelamdrivers Yes'}
 
   - !writeStatus: {status: 'Configure NTFS settings'}
@@ -40,10 +42,10 @@ actions:
   - !writeStatus: {status: 'Configure Windows settings'}
 
   # Melody's settings
-  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'DisablePagingExecutive', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'DisablePagingExecutive', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'LargeSystemCache', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers', value: 'DpiMapIommuContiguous', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000', value: 'PreferSystemMemoryContiguous', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers', value: 'DpiMapIommuContiguous', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000', value: 'PreferSystemMemoryContiguous', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers', value: 'HwSchMode', type: REG_DWORD, data: '2'}
   # Disable System Restore on All Drives by default, can be re-enabled.
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SPP\Clients'}
