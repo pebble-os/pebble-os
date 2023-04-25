@@ -31,4 +31,7 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager', value: 'HeapDeCommitFreeBlockThreshold', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32', value: '', type: REG_SZ, data: ''}
 
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile', value: 'LazyModeTimeout', type: REG_DWORD, data: '10000'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile', value: 'NoLazyMode', data: '1', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile', value: 'SystemResponsiveness', data: '10', type: REG_DWORD}
   - !run: {exeDir: true, exe: 'OTHER.cmd'}

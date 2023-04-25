@@ -329,3 +329,7 @@ actions:
   # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: 'NoDataExecutionPrevention', type: REG_DWORD, data: '1'}
   # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: 'DisableHHDEP', type: REG_DWORD, data: '1'}
   # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '0'}
+
+  # https://www.elevenforum.com/t/enable-or-disable-microsoft-defender-smartscreen-for-microsoft-store-apps-in-windows-11.5736/
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost', value: 'EnableWebContentEvaluation', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost', value: 'PreventOverride', type: REG_DWORD, data: '0'}

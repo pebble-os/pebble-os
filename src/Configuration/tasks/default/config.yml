@@ -8,17 +8,19 @@ actions:
   - !run: {exe: 'bcdedit', args: '/set disabledynamictick yes'}
   - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}
   - !run: {exe: 'bcdedit', args: '/set lastknowngood yes'}
+  - !run: {exe: 'bcdedit', args: '/set useplatformtick yes'}
   # Some Melody's settings
   # NOTE: One of these three below bcdedit breaks Windows 10 loading, for me at least.
-  # - !run: {exe: 'bcdedit', args: '/set firstmegabytepolicy UseAll'}
+  - !run: {exe: 'bcdedit', args: '/set firstmegabytepolicy UseAll'}
   # - !run: {exe: 'bcdedit', args: '/set avoidlowmemory 0x8000000'}
-  # - !run: {exe: 'bcdedit', args: '/set nolowmem Yes'}
+  # - !run: {exe: 'bcdedit', args: '/set nolowmem yes'}
 
-  # - !run: {exe: 'bcdedit', args: '/set disableelamdrivers Yes'}
+  - !run: {exe: 'bcdedit', args: '/set disableelamdrivers yes'}
 
   - !writeStatus: {status: 'Configure NTFS settings'}
   - !run: {exe: 'fsutil', args: 'behavior set disableLastAccess 3'}
   - !run: {exe: 'fsutil', args: 'behavior set disable8dot3 1'}
+  - !run: {exe: 'fsutil', args: 'behavior set disabledeletenotify 0'}
 
   - !writeStatus: {status: 'Configure Power Scheme'}
   - !run: {exe: 'powercfg', args: '/hibernate off'}
@@ -94,7 +96,7 @@ actions:
   - !registryValue: {path: 'HKCU\Control Panel\Mouse', value: 'MouseSpeed', data: '0', type: REG_SZ}
   - !registryValue: {path: 'HKCU\Control Panel\Mouse', value: 'MouseThreshold1', data: '0', type: REG_SZ}
   - !registryValue: {path: 'HKCU\Control Panel\Mouse', value: 'MouseThreshold2', data: '0', type: REG_SZ}
-  - !registryValue: {path: 'HKCU\Control Panel\Mouse', value: 'MouseHoverTime', data: '0', type: REG_SZ}
+  - !registryValue: {path: 'HKCU\Control Panel\Mouse', value: 'MouseHoverTime', data: '20', type: REG_SZ}
   # Disable always read and scan this section in ease of access
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Ease of Access', value: 'selfscan', data: '0', type: REG_DWORD}
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Ease of Access', value: 'selfvoice', data: '0', type: REG_DWORD}
@@ -378,6 +380,12 @@ actions:
   - !registryValue: {path: 'HKU\.DEFAULT\Control Panel\Mouse', value: 'MouseSpeed', type: REG_SZ, data: '0'}
   - !registryValue: {path: 'HKU\.DEFAULT\Control Panel\Mouse', value: 'MouseThreshold1', type: REG_SZ, data: '0'}
   - !registryValue: {path: 'HKU\.DEFAULT\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0'}
+
+  - !writeStatus: {status: 'Event Log'}
+  - !registryKey: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Windows PowerShell'}
+  - !registryKey: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Key Management Service'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup', value: 'Enabled', data: '0', type: REG_DWORD}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Reliability Analysis\WMI', value: 'WMIEnable', data: '0', type: REG_DWORD}
 
   - !writeStatus: {status: 'Group Policy'}
 

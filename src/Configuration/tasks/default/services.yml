@@ -50,7 +50,7 @@ actions:
   - !service: {name: 'SgrmAgent', operation: change, startup: 4}
   - !service: {name: 'SgrmBroker', operation: change, startup: 4}
   - !service: {name: 'SharedAccess', operation: change, startup: 4}
-  - !service: {name: 'ShellHWDetection', operation: change, startup: 4}
+  # - !service: {name: 'ShellHWDetection', operation: change, startup: 4}
   - !service: {name: 'SmsRouter', operation: change, startup: 4}
   - !service: {name: 'Spooler', operation: change, startup: 4}
   - !service: {name: 'SstpSvc', operation: change, startup: 4}
@@ -105,7 +105,7 @@ actions:
   - !service: {name: 'fdc', operation: change, startup: 4}
   - !service: {name: 'flpydisk', operation: change, startup: 4}
   - !service: {name: 'gencounter', operation: change, startup: 4}
-  # - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
+\  # - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
   - !service: {name: 'mrxsmb', operation: change, startup: 4}
   # Breaks lanmanworkstation, which is used by AMD Ryzen Master.
   # - !service: {name: 'mrxsmb20', operation: change, startup: 4}

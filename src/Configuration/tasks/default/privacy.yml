@@ -379,3 +379,7 @@ actions:
   - !registryValue: {path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: 'DisableWindowsSpotlightOnSettings', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: 'DisableWindowsSpotlightWindowsWelcomeExperience', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKU\S-1-5-18\Software\Policies\Microsoft\Windows\CloudContent', value: 'IncludeEnterpriseSpotlight', type: REG_DWORD, data: '0'}
+
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost', value: 'ETWLoggingEnabled', type: REG_DWORD, data: '0'}
+  # Disables a timestamp being written every 5 seconds by default.
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability', value: 'TimeStampInterval', type: REG_DWORD, data: '0'}
