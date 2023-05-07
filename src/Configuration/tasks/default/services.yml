@@ -14,7 +14,7 @@ actions:
   - !service: {name: 'AssignedAccessManagerSvc', operation: change, startup: 4}
   - !service: {name: 'bam', operation: change, startup: 4}
   - !service: {name: 'Beep', operation: change, startup: 4}
-  - !service: {name: 'CryptSvc', operation: change, startup: 3} # debut: sus?
+  # - !service: {name: 'CryptSvc', operation: change, startup: 3} # debut: sus?
   - !service: {name: 'dam', operation: change, startup: 4}
   - !service: {name: 'diagnosticshub.standardcollector.service', operation: change, startup: 4}
   - !service: {name: 'diagsvc', operation: change, startup: 4}
@@ -46,7 +46,7 @@ actions:
   - !service: {name: 'RetailDemo', operation: change, startup: 4}
   - !service: {name: 'SecurityHealthService', operation: change, startup: 4}
   - !service: {name: 'SEMgrSvc', operation: change, startup: 4}
-  - !service: {name: 'Sense', operation: change, startup: 4}
+  - !service: {name: 'Sense', operation: change, startup: 4}c
   - !service: {name: 'SgrmAgent', operation: change, startup: 4}
   - !service: {name: 'SgrmBroker', operation: change, startup: 4}
   - !service: {name: 'SharedAccess', operation: change, startup: 4}
@@ -60,7 +60,7 @@ actions:
   # Disabled logs around this, breaks Windows Restore points
   # IMO I don't use - but others may.
   # - !service: {name: 'VSS', operation: change, startup: 4}
-  - !service: {name: 'wbengine', operation: change, startup: 4}
+  # - !service: {name: 'wbengine', operation: change, startup: 4}
   - !service: {name: 'WdBoot', operation: change, startup: 4}
   - !service: {name: 'WdBoot', operation: change, startup: 4}
   - !service: {name: 'WdFilter', operation: change, startup: 4}
@@ -91,21 +91,21 @@ actions:
   - !service: {name: 'AsyncMac', operation: change, startup: 4}
   - !service: {name: 'bam', operation: change, startup: 4}
   - !service: {name: 'Beep', operation: change, startup: 4}
-  - !service: {name: 'bindflt', operation: change, startup: 4}
+  # - !service: {name: 'bindflt', operation: change, startup: 4}
   - !service: {name: 'buttonconverter', operation: change, startup: 4}
-  - !service: {name: 'CAD', operation: change, startup: 4}
+  # - !service: {name: 'CAD', operation: change, startup: 4}
   - !service: {name: 'cdfs', operation: change, startup: 4}
   - !service: {name: 'cdrom', operation: change, startup: 4}
   - !service: {name: 'CimFS', operation: change, startup: 4}
-  - !service: {name: 'circlass', operation: change, startup: 4}
+  # - !service: {name: 'circlass', operation: change, startup: 4}
   # - !service: {name: 'cnghwassist', operation: change, startup: 4}
   # TODO: Seems important to have?
   # - !service: {name: 'CompositeBus', operation: change, startup: 4}
-  - !service: {name: 'Dfsc', operation: change, startup: 4}
-  - !service: {name: 'ErrDev', operation: change, startup: 4}
+  # - !service: {name: 'Dfsc', operation: change, startup: 4}
+  # - !service: {name: 'ErrDev', operation: change, startup: 4}
   - !service: {name: 'fdc', operation: change, startup: 4}
   - !service: {name: 'flpydisk', operation: change, startup: 4}
-  - !service: {name: 'gencounter', operation: change, startup: 4}
+  # - !service: {name: 'gencounter', operation: change, startup: 4}
   # - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
   # - !service: {name: 'mrxsmb', operation: change, startup: 4}
   # Breaks lanmanworkstation, which is used by AMD Ryzen Master.
@@ -113,27 +113,27 @@ actions:
   - !service: {name: 'NdisVirtualBus', operation: change, startup: 4}
   - !service: {name: 'nvraid', operation: change, startup: 4}
   - !service: {name: 'passthruparser', operation: change, startup: 4}
-  - !service: {name: 'pvhdparser', operation: change, startup: 4}
+  # - !service: {name: 'pvhdparser', operation: change, startup: 4}
   # - !service: {name: 'RFCOMM', operation: change, startup: 4}
   - !service: {name: 'sfloppy', operation: change, startup: 4}
   - !service: {name: 'SiSRaid2', operation: change, startup: 4}
   - !service: {name: 'SiSRaid4', operation: change, startup: 4}
   # - !service: {name: 'spaceparser', operation: change, startup: 4}
   # - !service: {name: 'spaceport', operation: change, startup: 4}
-  - !service: {name: 'srv2', operation: change, startup: 4}
-  - !service: {name: 'storflt', operation: change, startup: 4}
+  # - !service: {name: 'srv2', operation: change, startup: 4}
+  # - !service: {name: 'storflt', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
   - !service: {name: 'udfs', operation: change, startup: 4}
   # TODO: Seems important to have?
   # - !service: {name: 'umbus', operation: change, startup: 4}
   # - !service: {name: 'VerifierExt', operation: change, startup: 4}
-  - !service: {name: 'vhdparser', operation: change, startup: 4}
+  # - !service: {name: 'vhdparser', operation: change, startup: 4}
   # - !service: {name: 'Vid', operation: change, startup: 4}
   # - !service: {name: 'vpci', operation: change, startup: 4}
-  - !service: {name: 'vsmraid', operation: change, startup: 4}
-  - !service: {name: 'VSTXRAID', operation: change, startup: 4}
+  # - !service: {name: 'vsmraid', operation: change, startup: 4}
+  # - !service: {name: 'VSTXRAID', operation: change, startup: 4}
   - !service: {name: 'wanarp', operation: change, startup: 4}
-  - !service: {name: 'WindowsTrustedRTProxy', operation: change, startup: 4}
+  # - !service: {name: 'WindowsTrustedRTProxy', operation: change, startup: 4}
   # - !service: { name: "Tcpip6", operation: change, startup: 3 }
   # - !service: { name: "tcpipreg", operation: change, startup: 4 }
   # - !service: { name: "wcnfs", operation: change, startup: 4 }

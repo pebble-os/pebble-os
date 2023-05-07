@@ -20,7 +20,7 @@ actions:
   - !registryValue: {path: 'HKCU\Software\Policies\Microsoft\Windows NT\Printers', value: 'DisableWebPnPDownload', type: REG_DWORD, data: '1'}
 
   # Other security mitigations not easily convertible to yaml format
-  - !run: {exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "SECURITY.ps1"', exeDir: true, wait: true}
+  # - !run: {exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "SECURITY.ps1"', exeDir: true, wait: true}
 
   # Disable and delete adobe font type manager
   # Fixed?
@@ -34,9 +34,9 @@ actions:
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer', value: 'NoAutoplayfornonVolume', data: '1', type: REG_DWORD}
 
   # From NTLite. Known vulnerabilities with Intel Indeo
-  - !service: {name: 'wuauserv', operation: stop}
-  - !systemPackage: {name: 'Microsoft-Windows-Indeo4-Codecs', arch: x86, language: 'neutral'}
-  - !systemPackage: {name: 'Microsoft-Windows-Indeo5-Codecs', arch: x86, language: 'neutral'}
+  # - !service: {name: 'wuauserv', operation: stop}
+  # - !systemPackage: {name: 'Microsoft-Windows-Indeo4-Codecs', arch: x86, language: 'neutral'}
+  # - !systemPackage: {name: 'Microsoft-Windows-Indeo5-Codecs', arch: x86, language: 'neutral'}
 
   # SMB vulnerability mitigation
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters', value: 'DisableCompression', data: '1', type: REG_DWORD}
@@ -53,8 +53,8 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa', value: 'RestrictAnonymousSAM', data: '1', type: REG_DWORD}
 
   # Enable strong crypto for dot net
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\.NetFramework\v4.0.30319', value: 'SchUseStrongCrypto', data: '1', type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319', value: 'SchUseStrongCrypto', data: '1', type: REG_DWORD}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\.NetFramework\v4.0.30319', value: 'SchUseStrongCrypto', data: '1', type: REG_DWORD}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319', value: 'SchUseStrongCrypto', data: '1', type: REG_DWORD}
 
   # Adobe Security Improvements
   - !registryKey: {path: 'HKCU\SOFTWARE\Adobe', operation: add}
@@ -229,16 +229,14 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '1'}
   # atlantsecuriy:::: Require encrypted RPC connections to Remote Desktop
   # atlantsecuriy:::: Prevent sharing of local drives via Remote Desktop Session Hosts
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services', value: 'fEncryptRPCTraffic', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services', value: 'fDisableCdm', type: REG_DWORD, data: '1'}
-
+F
   # atlantsecuriy:::: Stop NetBIOS over TCP/IP
   - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2'}
   - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2'}
 
   # atlantsecuriy:::: Disable NTLMv1
-  - !powerShell: {command: 'Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\mrxsmb10', value: 'Start', type: REG_DWORD, data: '4'}
+  # - !powerShell: {command: 'Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol'}
+  # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Services\mrxsmb10', value: 'Start', type: REG_DWORD, data: '4'}
 
   # atlantsecuriy:: Harden lsass to help protect against credential dumping (Mimikatz)
   # atlantsecuriy:: Configures lsass.exe as a protected process and disables wdigest
@@ -256,7 +254,7 @@ actions:
   ####################################################### security. These are disabled as a tradeoff for privacy or performance.
   #######################################################
   # Turns off Windows blocking installation of files downloaded from the internet
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe', value: 'Debugger', type: REG_SZ, data: '%%windir%%\System32\taskkill.exe'}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe', value: 'Debugger', type: REG_SZ, data: '%%windir%%\System32\taskkill.exe'}
 
   # Smartscreen related
   - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: 'SaveZoneInformation', type: REG_DWORD, data: '1'}
@@ -320,7 +318,6 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettings', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverride', type: REG_DWORD, data: '3'}
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverrideMask', type: REG_DWORD, data: '3'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'ScanWithAntiVirus', type: REG_DWORD, data: '1'}
   # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'DisableExceptionChainValidation', type: REG_DWORD, data: '1'}
   # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel', value: 'KernelSEHOPEnabled', type: REG_DWORD, data: '0'}
   # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\FVE', value: 'DisableExternalDMAUnderLock', type: REG_DWORD, data: '0'}
@@ -331,6 +328,7 @@ actions:
   # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: 'DisableHHDEP', type: REG_DWORD, data: '1'}
   # - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '0'}
 
+  # Causes issues installing some apps?
   # https://www.elevenforum.com/t/enable-or-disable-microsoft-defender-smartscreen-for-microsoft-store-apps-in-windows-11.5736/
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost', value: 'EnableWebContentEvaluation', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost', value: 'PreventOverride', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost', value: 'EnableWebContentEvaluation', type: REG_DWORD, data: '0'}
+  # - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost', value: 'PreventOverride', type: REG_DWORD, data: '0'}
