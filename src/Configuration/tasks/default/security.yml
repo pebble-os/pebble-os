@@ -229,7 +229,7 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager', value: 'ProtectionMode', type: REG_DWORD, data: '1'}
   # atlantsecuriy:::: Require encrypted RPC connections to Remote Desktop
   # atlantsecuriy:::: Prevent sharing of local drives via Remote Desktop Session Hosts
-F
+
   # atlantsecuriy:::: Stop NetBIOS over TCP/IP
   - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2'}
   - !run: {exe: 'wmic', args: '/interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2'}
