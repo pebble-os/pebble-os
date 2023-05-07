@@ -46,7 +46,7 @@ actions:
   - !service: {name: 'RetailDemo', operation: change, startup: 4}
   - !service: {name: 'SecurityHealthService', operation: change, startup: 4}
   - !service: {name: 'SEMgrSvc', operation: change, startup: 4}
-  - !service: {name: 'Sense', operation: change, startup: 4}c
+  - !service: {name: 'Sense', operation: change, startup: 4}
   - !service: {name: 'SgrmAgent', operation: change, startup: 4}
   - !service: {name: 'SgrmBroker', operation: change, startup: 4}
   - !service: {name: 'SharedAccess', operation: change, startup: 4}
