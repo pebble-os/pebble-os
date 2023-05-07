@@ -4,49 +4,19 @@ description: Configure Windows settings
 privilege: TrustedInstaller
 actions:
   - !writeStatus: {status: 'Configuring boot settings'}
-  - !run: {exe: 'bcdedit', args: '/deletevalue useplatformclock'}
-  - !run: {exe: 'bcdedit', args: '/set disabledynamictick yes'}
-  - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}
-  - !run: {exe: 'bcdedit', args: '/set lastknowngood yes'}
-  - !run: {exe: 'bcdedit', args: '/set useplatformtick yes'}
-  # Some Melody's settings
-  # NOTE: One of these three below bcdedit breaks Windows 10 loading, for me at least.
-  # - !run: {exe: 'bcdedit', args: '/set firstmegabytepolicy UseAll'}
-  # - !run: {exe: 'bcdedit', args: '/set avoidlowmemory 0x8000000'}
-  # - !run: {exe: 'bcdedit', args: '/set nolowmem yes'}
-  # - !run: {exe: 'bcdedit', args: '/set disableelamdrivers yes'}
+  - !run: {exe: 'bcdedit', args: '/deletevalue useplatformclock', showOutput: false, showError: false}
+  - !run: {exe: 'bcdedit', args: '/set disabledynamictick yes', showOutput: false, showError: false}
+  - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy', showOutput: false, showError: false}
+  - !run: {exe: 'bcdedit', args: '/set lastknowngood yes', showOutput: false, showError: false}
 
   - !writeStatus: {status: 'Configure NTFS settings'}
   - !run: {exe: 'fsutil', args: 'behavior set disableLastAccess 3'}
   - !run: {exe: 'fsutil', args: 'behavior set disable8dot3 1'}
   - !run: {exe: 'fsutil', args: 'behavior set disabledeletenotify 0'}
 
-  - !writeStatus: {status: 'Configure Power Scheme'}
-  - !run: {exe: 'powercfg', args: '/hibernate off'}
-  - !run: {exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61'}
-  - !run: {exe: 'powercfg', args: '-duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 3ff9831b-6f80-4830-8178-736cd4229e7b'}
-  - !run: {exe: 'powercfg', args: '-changename 3ff9831b-6f80-4830-8178-736cd4229e7b "Ultra Performance" "Windows''s Ultimate Performance with additional changes."'}
-  - !run: {exe: 'powercfg', args: '-s 3ff9831b-6f80-4830-8178-736cd4229e7b'}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFINCPOL 2'}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFDECPOL 1'}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFINCTHRESHOLD 10'}
-  - !run: {exe: 'powercfg', args: '-setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8'}
-  - !run: {exe: 'powercfg', args: '/setactive scheme_current'}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /disable'}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /disable'}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /disable'}
-  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\WindowsUpdate\Scheduled Start" /disable'}
-  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-SleepStudy/Diagnostic /e:false'}
-  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /e:false'}
-  - !run: {exe: 'wevtutil', args: 'sl Microsoft-Windows-UserModePowerService/Diagnostic /e:false'}
-
   - !writeStatus: {status: 'Configure Windows settings'}
 
   # Melody's settings
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'DisablePagingExecutive', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management', value: 'LargeSystemCache', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers', value: 'DpiMapIommuContiguous', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000', value: 'PreferSystemMemoryContiguous', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers', value: 'HwSchMode', type: REG_DWORD, data: '2'}
   # Disable System Restore on All Drives by default, can be re-enabled.
   - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SPP\Clients'}
@@ -122,20 +92,6 @@ actions:
   # Disable touch visual feedback
   - !registryValue: {path: 'HKCU\Control Panel\Cursors', value: 'GestureVisualization', data: '0', type: REG_DWORD}
   - !registryValue: {path: 'HKCU\Control Panel\Cursors', value: 'ContactVisualization', data: '0', type: REG_DWORD}
-    # Remove readyboost tab
-  - !registryKey: {path: 'HKCR\Drive\shellex\PropertySheetHandlers\{55B3A0BD-4D28-42fe-8CFB-FA3EDFF969B8}'}
-
-  - !registryValue: {path: 'HKLM\SOFTWARE\Classes\CLSID\{D15ED2E1-C75B-443c-BD7C-FC03B2F08C17}', data: 'All Tasks', type: REG_SZ}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Classes\CLSID\{D15ED2E1-C75B-443c-BD7C-FC03B2F08C17}', value: 'InfoTip', data: 'View list of all Control Panel tasks', type: REG_SZ}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Classes\CLSID\{D15ED2E1-C75B-443c-BD7C-FC03B2F08C17}', value: 'System.ControlPanel.Category', data: '5', type: REG_SZ}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Classes\CLSID\{D15ED2E1-C75B-443c-BD7C-FC03B2F08C17}\DefaultIcon', data: 'C:\Windows\System32\imageres.dll,-27', type: REG_SZ}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Classes\CLSID\{D15ED2E1-C75B-443c-BD7C-FC03B2F08C17}\Shell\Open\Command', data: 'explorer.exe shell:::{ED7BA470-8E54-465E-825C-99712043E01C}', type: REG_SZ}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{D15ED2E1-C75B-443c-BD7C-FC03B2F08C17}', data: 'All Tasks', type: REG_SZ}
-  # Disable notify about USB issues
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Shell\USB', value: 'NotifyOnUsbErrors', data: '0', type: REG_DWORD}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Shell\USB', value: 'NotifyOnWeakCharger', data: '0', type: REG_DWORD}
-    # Remove Internet Explorer SVG association
-  - !registryKey: {path: 'HKCR\svgfile'}
 
     # Do not reduce sounds while in a call
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Multimedia\Audio', value: 'UserDuckingPreference', data: '3', type: REG_DWORD}
@@ -143,6 +99,7 @@ actions:
   # Do not show hidden/disconnected devices in sound settings
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl', value: 'ShowDisconnectedDevices', data: '0', type: REG_DWORD}
   - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Multimedia\Audio\DeviceCpl', value: 'ShowHiddenDevices', data: '0', type: REG_DWORD}
+
     # Remove 'Restore previous versions' from context menu and file' properties
   - !registryKey: {path: 'HKCR\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}'}
   - !registryKey: {path: 'HKCR\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}'}
@@ -165,7 +122,8 @@ actions:
 
     # Remove 'Cast to device' from context menu
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked', value: '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}', data: '', type: REG_SZ}
-    # Remove 'Share' from context menu
+
+  # Remove 'Share' from context menu
   - !registryKey: {path: 'HKCR\*\shellex\ContextMenuHandlers\ModernSharing'}
 
     # Remove 'Extract all' from context menu
@@ -225,47 +183,10 @@ actions:
   - !registryValue: {path: 'HKCR\CABFolder\Shell\RunAs', value: '', data: 'Install', type: REG_SZ}
   - !registryValue: {path: 'HKCR\CABFolder\Shell\RunAs', value: 'HasLUAShield', data: '', type: REG_SZ}
   - !registryValue: {path: 'HKCR\CABFolder\Shell\RunAs\Command', value: '', data: 'cmd /k DISM /online /add-package /packagepath:\"%1\"', type: REG_SZ}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', value: 'SecurityHealth', operation: delete}
-
-  # Crash settings
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'AutoReboot', data: '0', type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'CrashDumpEnabled', data: '0', type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'LogEvent', data: '0', type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl', value: 'DisplayParameters', data: '1', type: REG_DWORD}
-  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize', value: 'StartupDelayInMSec', data: '0', type: REG_DWORD}
 
   - !writeStatus: {status: 'Configure Scheduled Tasks'}
-  - !scheduledTask: {path: '\Microsoft\Windows\Application Experience\AitAgent', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Application Experience\PcaPatchDbTask', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Application Experience\StartupAppTask', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\CloudExperienceHost\CreateObjectTask', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Input\LocalUserSyncDataAvailable', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Input\MouseSyncDataAvailable', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Input\PenSyncDataAvailable', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Input\TouchpadSyncDataAvailable', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\International\Synchronize Language Settings', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Management\Provisioning\Cellular', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Management\Provisioning\Logon', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Printing\EduPrintProv', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\PushToInstall\LoginCheck', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\PushToInstall\Registration', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Ras\MobilityManager', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Shell\FamilySafetyMonitor', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Shell\FamilySafetyRefresh', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTask', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Windows Defender\Windows Defender Cleanup', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Windows Defender\Windows Defender Cleanup', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Windows Error Reporting\QueueReporting', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\Windows Media Sharing\UpdateLibrary', operation: delete}
-  - !scheduledTask: {path: '\Microsoft\Windows\WwanSvc\OobeDiscovery', operation: delete}
+  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /disable', showOutput: false}
+  - !run: {exe: 'schtasks', args: '/change /tn "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /disable', showOutput: false}
 
   - !writeStatus: {status: 'Registry settings'}
 
@@ -313,17 +234,16 @@ actions:
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\wcmsvc\wifinetworkmanager\config', value: 'AutoConnectAllowedOEM', data: '0', type: REG_DWORD}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\EMDMgmt', value: 'AllowNewCachesByDefault', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\EMDMgmt', value: 'GroupPolicyDisallowCaches', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '5'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe\PerfOptions', value: 'IoPriority', type: REG_DWORD, data: '0'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SearchIndexer.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '5'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sihost.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sihost.exe\PerfOptions', value: 'IoPriority', type: REG_DWORD, data: '0'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sppsvc.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sppsvc.exe\PerfOptions', value: 'IoPriority', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SearchIndexer.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '5'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '5'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe\PerfOptions', value: 'IoPriority', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sihost.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sihost.exe\PerfOptions', value: 'IoPriority', type: REG_DWORD, data: '0'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sppsvc.exe\PerfOptions', value: 'CpuPriorityClass', type: REG_DWORD, data: '1'}
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sppsvc.exe\PerfOptions', value: 'IoPriority', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings', value: 'ShowHibernateOption', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings', value: 'ShowSleepOption', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing', value: 'RepairContentServerSource', type: REG_DWORD, data: '2'}
   - !registryValue: {path: 'HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System', value: 'EnableFirstLogonAnimation', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System', value: 'EnableLinkedConnections', type: REG_DWORD, data: '1'}
@@ -334,14 +254,9 @@ actions:
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Superfetch/PfApLog', value: 'Enabled', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Superfetch/StoreLog', value: 'Enabled', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\WlanSvc\AnqpCache', value: 'OsuRegistrationStatus', data: '0', type: REG_DWORD}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\InfoDelivery\Restrictions', value: 'NoUpdateCheck', type: REG_DWORD, data: '1'}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Internet Explorer\Main', value: 'EnableAutoUpgrade', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\PreventIndexingCertainPaths', value: 'file:///C:\Licenses\*', type: REG_SZ, data: 'file:///C:\Licenses\*'}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\PreventIndexingCertainPaths', value: 'file:///C:\Windows\src\*', type: REG_SZ, data: 'file:///C:\Windows\src\*'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds', value: 'AllowBuildPreview', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\Windows\System', value: 'HiberbootEnabled', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System', value: 'RSoPLogging', type: REG_DWORD, data: '0'}
-  - !registryValue: {path: 'HKLM\Software\Policies\Microsoft\WindowsMediaPlayer', value: 'DisableAutoUpdate', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control', value: 'WaitToKillServiceTimeout', type: REG_SZ, data: '1500'}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\CrashControl', value: 'AutoReboot', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\CrashControl', value: 'CrashDumpEnabled', type: REG_DWORD, data: '3'}
@@ -410,4 +325,3 @@ actions:
   - !run: {exe: 'winmgmt', args: '/resyncperf'}
   - !powerShell: {command: 'Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient, ms_server, ms_lldp, ms_lltdio, ms_rspndr'}
   - !run: {exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "DEVICES.ps1"', exeDir: true, wait: true}
-  - !service: {name: 'SysMain', operation: change, startup: 4}
