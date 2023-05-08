@@ -23,8 +23,9 @@ actions:
   - !run: {exe: 'powershell.exe', args: '-NoProfile -ExecutionPolicy Bypass -File "SECURITY.ps1"', exeDir: true, wait: true}
 
   # Disable and delete adobe font type manager
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers', value: 'Adobe Type Manager', operation: delete}
-  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows', value: 'DisableATMFD', data: '1', type: REG_DWORD}
+  # Fixed?
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers', value: 'Adobe Type Manager', operation: delete}
+  # - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows', value: 'DisableATMFD', data: '1', type: REG_DWORD}
 
   # Disable USB autorun/play
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer', value: 'NoAutorun', data: '1', type: REG_DWORD}

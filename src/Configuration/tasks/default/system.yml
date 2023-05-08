@@ -6,7 +6,7 @@ privilege: TrustedInstaller
 actions:
   - !writeStatus: {status: 'Configure DISM features'}
 
-  - !cmd: {command: 'DISM /Online /Enable-Feature /FeatureName:"DirectPlay" /NoRestart'}
+  # - !cmd: {command: 'DISM /Online /Enable-Feature /FeatureName:"DirectPlay" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"MicrosoftWindowsPowerShellV2Root" /NoRestart'}
   - !cmd: {command: 'DISM /Online /Disable-Feature /FeatureName:"MSRDC-Infrastructure" /NoRestart'}

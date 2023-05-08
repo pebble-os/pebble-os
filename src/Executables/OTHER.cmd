@@ -66,3 +66,7 @@ wmic computersystem get manufacturer /format:value | findstr /i /c:VMWare && (
 attrib +h "%APPDATA%\Microsoft\Windows\SendTo\Bluetooth File Transfer.LNK"
 attrib +h "%APPDATA%\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail"
 attrib +h "%APPDATA%\Microsoft\Windows\SendTo\Documents.mydocs"
+
+:: Prevents mobsync from running on startup
+ren "!windir!\System32\mobsync.exe" mobsync.old
+ren "!windir!\SysWOW64\mobsync.exe" mobsync.old

@@ -72,6 +72,7 @@ actions:
   - !service: {name: 'webthreatdefusersvc', operation: change, startup: 4}
   - !service: {name: 'webthreatdefusersvc*', operation: change, startup: 4}
   - !service: {name: 'WerSvc', operation: change, startup: 4}
+  - !service: {name: 'wercplsupport', operation: change, startup: 4}
   - !service: {name: 'WinDefend', operation: change, startup: 4}
   - !service: {name: 'wisvc', operation: change, startup: 4}
   - !service: {name: 'wlpasvc', operation: change, startup: 4}
@@ -105,8 +106,8 @@ actions:
   - !service: {name: 'fdc', operation: change, startup: 4}
   - !service: {name: 'flpydisk', operation: change, startup: 4}
   - !service: {name: 'gencounter', operation: change, startup: 4}
-\  # - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
-  - !service: {name: 'mrxsmb', operation: change, startup: 4}
+  # - !service: {name: 'Microsoft_Bluetooth_AvrcpTransport', operation: change, startup: 4}
+  # - !service: {name: 'mrxsmb', operation: change, startup: 4}
   # Breaks lanmanworkstation, which is used by AMD Ryzen Master.
   # - !service: {name: 'mrxsmb20', operation: change, startup: 4}
   - !service: {name: 'NdisVirtualBus', operation: change, startup: 4}
@@ -117,8 +118,8 @@ actions:
   - !service: {name: 'sfloppy', operation: change, startup: 4}
   - !service: {name: 'SiSRaid2', operation: change, startup: 4}
   - !service: {name: 'SiSRaid4', operation: change, startup: 4}
-  - !service: {name: 'spaceparser', operation: change, startup: 4}
-  - !service: {name: 'spaceport', operation: change, startup: 4}
+  # - !service: {name: 'spaceparser', operation: change, startup: 4}
+  # - !service: {name: 'spaceport', operation: change, startup: 4}
   - !service: {name: 'srv2', operation: change, startup: 4}
   - !service: {name: 'storflt', operation: change, startup: 4}
   - !service: {name: 'Telemetry', operation: change, startup: 4}
