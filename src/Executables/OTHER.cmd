@@ -6,13 +6,6 @@ for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:v
 set /a "mem=%memTemp% + 1024000"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control" /v "SvcHostSplitThresholdInKB" /t REG_DWORD /d "%mem%" /f >NUL
 
-@REM TODO: May cause issues?
-@REM :: Disable DMA remapping
-@REM :: https://docs.microsoft.com/en-us/windows-hardware/drivers/pci/enabling-dma-remapping-for-device-drivers
-@REM for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
-@REM     reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
-@REM )
-
 :: Disable NetBios over tcp/ip
 :: Works only when services are enabled
 for /f "delims=" %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces" /s /f "NetbiosOptions" ^| findstr "HKEY"') do (

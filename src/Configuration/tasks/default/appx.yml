@@ -15,7 +15,7 @@ actions:
   # - !appx: { name: "*Microsoft.Advertising.Xaml*", type: family } # DEBT: dependencies?
   - !appx: {name: '*Microsoft.BingNews*', type: family}
   - !appx: {name: '*Microsoft.BingWeather*', type: family}
-  - !appx: {name: '*Microsoft.Calculator*', type: family}
+  # - !appx: {name: '*Microsoft.Calculator*', type: family}
   # - !appx: { name: "*Microsoft.ECApp*", type: family } #DEBT: unknown
   - !appx: {name: '*Microsoft.GetHelp*', type: family}
   - !appx: {name: '*Microsoft.Getstarted*', type: family}
@@ -67,7 +67,7 @@ actions:
   - !appx: {name: '*Sway*', type: family}
   # - !appx: { name: "*Windows.CBSPreview*", type: family } DEBT: unsure what this does, if dependency
   - !appx: {name: '*WindowsCamera*', type: family}
-  - !appx: {name: '*WindowsMaps*', type: family}
+  # - !appx: {name: '*WindowsMaps*', type: family}
   - !appx: {name: '*WindowsSoundRecorder*', type: family}
 
   - !writeStatus: {status: 'Deprovision APPX packages'}

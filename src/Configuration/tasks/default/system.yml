@@ -30,3 +30,10 @@ actions:
 
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile', value: 'SystemResponsiveness', data: '10', type: REG_DWORD}
   - !run: {exeDir: true, exe: 'OTHER.cmd'}
+
+  - !writeStatus: {status: 'Optimising PowerShell'}
+  - !run:
+    exe: 'powershell.exe'
+    args: '-NoP -File NGEN.ps1'
+    exeDir: true
+    wait: true

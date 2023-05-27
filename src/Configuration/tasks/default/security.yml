@@ -270,9 +270,6 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'Locked', type: REG_DWORD, data: '0'}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity', value: 'WasEnabledBy', operation: delete}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Lsa', value: 'LsaCfgFlags', type: REG_DWORD, data: '0'}
-  # # TODO: Maybe cause issues?
-  # - !cmd: {exeDir: true, command: '@echo Disable-MMAgent -MC; ForEach($v in (Get-Command -Name "Set-ProcessMitigation").Parameters["Disable"].Attributes.ValidValues){Set-ProcessMitigation -System -Disable $v.ToString().Replace(" ", "").Replace("`n", "")}; rm $PSCommandPath> MC_PM.ps1'}
-  # - !run: {exeDir: true, exe: 'powershell', args: '-windowstyle hidden -ExecutionPolicy Bypass -C "& ''./MC_PM.ps1''"'}
   # (Disable!) Windows Defender related
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications', value: 'DisableEnhancedNotifications', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray', value: 'HideSystray', type: REG_DWORD, data: '1'}
@@ -290,14 +287,6 @@ actions:
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: 'FeatureSettings', type: REG_DWORD, data: '1'}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverride', type: REG_DWORD, data: '3'}
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Memory Management', value: 'FeatureSettingsOverrideMask', type: REG_DWORD, data: '3'}
-  # (Disable!) (DEBT: need note for, related to mitigation options?)
-  # # TODO: Maybe cause issues?
-  # - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'csrss.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
-  # - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'dwm.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
-  # - !registryValue: {path: 'HKCU\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'ntoskrnl.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'csrss.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'dwm.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
-  # - !registryValue: {path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\MitigationOptions\ProcessMitigationOptions', value: 'ntoskrnl.exe', type: REG_SZ, data: '00000000000000000000000000000000'}
   # (Disable!) Disables "Publisher could not be verified", anti virus scanning
   - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations', value: 'DefaultFileTypeRisk', type: REG_DWORD, data: '1808'}
   - !registryValue: {path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments', value: 'ScanWithAntiVirus', type: REG_DWORD, data: '1'}
