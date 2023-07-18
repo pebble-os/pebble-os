@@ -31,8 +31,8 @@ actions:
   - !service: {name: 'lfsvc', operation: change, startup: 3} # Note: Nice to have for programs like Auto Dark
   - !service: {name: 'MapsBroker', operation: change, startup: 4}
   - !service: {name: 'MessagingService', operation: change, startup: 4}
-  - !service: {name: 'MsSecCore', operation: change, startup: 4}
-  - !service: {name: 'MsSecFlt', operation: change, startup: 4}
+  # - !service: {name: 'MsSecCore', operation: change, startup: 4}
+  # - !service: {name: 'MsSecFlt', operation: change, startup: 4}
   - !service: {name: 'NetBT', operation: change, startup: 4}
   - !service: {name: 'PcaSvc', operation: change, startup: 4}
   # - !service: {name: 'PeerDistSvc', operation: change, startup: 4}
@@ -46,8 +46,8 @@ actions:
   # - !service: {name: 'SecurityHealthService', operation: change, startup: 4}
   - !service: {name: 'SEMgrSvc', operation: change, startup: 4}
   - !service: {name: 'Sense', operation: change, startup: 4}
-  - !service: {name: 'SgrmAgent', operation: change, startup: 4}
-  - !service: {name: 'SgrmBroker', operation: change, startup: 4}
+  # - !service: {name: 'SgrmAgent', operation: change, startup: 4}
+  # - !service: {name: 'SgrmBroker', operation: change, startup: 4}
   - !service: {name: 'SharedAccess', operation: change, startup: 4}
   # - !service: {name: 'ShellHWDetection', operation: change, startup: 4}
   - !service: {name: 'SmsRouter', operation: change, startup: 4}
