@@ -69,7 +69,7 @@ actions:
   - !service: {name: 'webthreatdefsvc', operation: change, startup: 4}
   - !service: {name: 'webthreatdefusersvc', operation: change, startup: 4}
   - !service: {name: 'WerSvc', operation: change, startup: 4}
-  - !service: {name: 'wercplsupport', operation: change, startup: 4}
+  # - !service: {name: 'wercplsupport', operation: change, startup: 4}
   - !service: {name: 'WinDefend', operation: change, startup: 4}
   - !service: {name: 'wisvc', operation: change, startup: 4}
   # - !service: {name: 'wscsvc', operation: change, startup: 4}

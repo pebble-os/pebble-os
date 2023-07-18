@@ -12,24 +12,27 @@ for /f "delims=" %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetB
     reg add "%%a" /v "NetbiosOptions" /t REG_DWORD /d "2" /f
 )
 
-:: Enable MSI mode on USB, GPU, SATA controllers and network adapters
+:: MSI Mode
+
+:: Enable MSI mode on USB, GPU, Audio, SATA controllers and network adapters
 :: Deleting DevicePriority sets the priority to undefined
 for %%a in (
+    Win32_NetworkAdapter,
+    Win32_PnPEntity,
+    Win32_SoundDevice,
     Win32_USBController,
     Win32_VideoController,
-    Win32_NetworkAdapter,
-    Win32_IDEController
 ) do (
-    for /f %%i in ('wmic path %%a get PNPDeviceID ^| findstr /l "PCI\VEN_"') do (
-        reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%i\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
-        reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%i\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
-    )
-)
-
-:: If e.g. VMWare is used, set network adapter to normal priority as undefined on some virtual machines may break internet connection
-wmic computersystem get manufacturer /format:value | findstr /i /c:VMWare && (
-    for /f %%a in ('wmic path Win32_NetworkAdapter get PNPDeviceID ^| findstr /l "PCI\VEN_"') do (
-        reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%a\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /t REG_DWORD /d "2" /f
+    if "%%a" == "Win32_PnPEntity" (
+        for /f "tokens=*" %%b in ('PowerShell -NoP -C "Get-WmiObject -Class Win32_PnPEntity | Where-Object {$_.PNPClass -eq 'SCSIAdapter'} | Where-Object { $_.PNPDeviceID -like 'PCI\VEN_*' } | Select-Object -ExpandProperty DeviceID"') do (
+            reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%b\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+            reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%b\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+        )
+    ) else (
+        for /f %%b in ('wmic path %%a get PNPDeviceID ^| findstr /l "PCI\VEN_"') do (
+            reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%b\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+            reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%b\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+        )
     )
 )
 
