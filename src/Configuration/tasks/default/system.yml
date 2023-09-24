@@ -28,6 +28,16 @@ actions:
   # Rdyboost / sysmain related
   - !registryValue: {path: 'HKLM\SYSTEM\ControlSet001\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}', value: 'LowerFilters', type: REG_MULTI_SZ, data: 'fvevol\0iorate'}
 
+  - !run:
+    exe: 'wevtutil.exe'
+    args: 'set-log "Microsoft-Windows-SleepStudy/Diagnostic" /e:false'
+  - !run:
+    exe: 'wevtutil.exe'
+    args: 'set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /e:false'
+  - !run:
+    exe: 'wevtutil.exe'
+    args: 'set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false'
+
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile', value: 'SystemResponsiveness', data: '10', type: REG_DWORD}
   - !run: {exeDir: true, exe: 'OTHER.cmd'}
 
